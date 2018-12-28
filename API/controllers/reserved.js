@@ -3,6 +3,8 @@ var fs = require('fs');
 var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
 var Reserved = require('../models/reserved');
+var Table = require('../models/table');
+var User = require('../models/user');
 var jwt = require('../service/jwt');
 
 function pruebaReserved(req, res) {
@@ -48,20 +50,14 @@ function createReserved(req, res) {
 }
 
 function getReserveds(req, res){
-  var albumId = req.params.album;
+  var reservedId = req.params.album;
 
-  if(!albumId){
+  if(!reservedId){
     var find = Reserved.find({}).sort('number');
   }else{
-    var find = Reserved.find({album: albumId}).sort('number');
+    var find = Reserved.find({reserved: reservedId}).sort('number');
   }
-  find.populate({
-    path: 'album',
-    populate:{
-      path: 'artist',
-      model: 'Artist'
-    }
-  }).exec((err, reserveds)=>{
+  find.populate({path: 'user'}).exec((err, reserveds)=>{
     if(err){
       res.status(500).send({message: "Error en la peticion"});
     }else{

@@ -1,6 +1,6 @@
 'use strict'
 
-var monogoose = require('mongoose');
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TableSchema = Schema({
