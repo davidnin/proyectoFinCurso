@@ -65,9 +65,10 @@ function loginUser(req,res){
 
           bcrypt.compare(password, user.password, function(err,check){
             if(check){
-              if(params.gethash){
+              if(params.getHash){
                 res.status(200).send({
-                  token:jwt.createToken(user)
+                  token: jwt.createToken(user),
+                  user: user
                 });
               }else{
                 res.status(200).send({user});

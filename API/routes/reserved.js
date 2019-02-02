@@ -10,7 +10,7 @@ var multipart= require('connect-multiparty');
 var md_upload = multipart({uploadDir: './uploads/reserved'});
 
 
-api.get('/',ReservedController.getReserved);
+api.get('/',ReservedController.pruebaReserved);
 api.post('/login',ReservedController.createReserved);
 api.get('/reserveds/:album?', ReservedController.getReserveds);
 api.put('/update/:id',ReservedController.updateReserved);
