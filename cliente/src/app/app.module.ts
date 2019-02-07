@@ -5,17 +5,22 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavBarLoginComponent } from './components/nav-bar-login/nav-bar-login.component';
 import { NavBarNotloginComponent } from './components/nav-bar-notlogin/nav-bar-notlogin.component';
+import { LoginSingupComponent } from './components/login-singup/login-singup.component';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarLoginComponent,
-    NavBarNotloginComponent
+    NavBarNotloginComponent,
+    LoginSingupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
