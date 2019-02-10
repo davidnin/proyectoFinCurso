@@ -11,8 +11,8 @@ var md_upload = multipart({uploadDir: './uploads/table'});
 
 
 api.get('/',TableController.pruebaTable);
-api.post('/login',TableController.createTable);
-api.get('/tables/:album?', TableController.getTables);
+api.post('/create',TableController.createTable);
+api.get('/tables', TableController.getTables);
 api.put('/update/:id',TableController.updateTable);
 api.delete('/delete/:id',TableController.deleteTable);
 

@@ -31,19 +31,15 @@ export class LoginSingupComponent implements OnInit {
     this.identity = this._userService. getIdentidy();
     this.token = this._userService.getToken();
 
-    console.log(identity);
-    console.log(this.token);
   }
 
 
   public onSubmit() {
-    console.log(this.user);
     //Aqui conseguimos los datos del usuario identificado
     this._userService.signup(this.user, true).subscribe(
       response => {
         let identity = response.user;
         this.identity = identity;
-        console.log(this.identity);
         if (!this.identity._id) {
           alert("El usuario no esta correctamente identificado");
         } else {
@@ -51,7 +47,6 @@ export class LoginSingupComponent implements OnInit {
 
           this._userService.signup(this.user, true).subscribe(
             response => {
-              console.log(response);
               let token = response.token;
               this.token = token;
 
@@ -69,7 +64,6 @@ export class LoginSingupComponent implements OnInit {
               if (errorMessage != null) {
                 var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
                 this.errorMessage = body.message;
-                console.log(errorMessage);
               }
             }
           );
@@ -81,7 +75,6 @@ export class LoginSingupComponent implements OnInit {
         if (errorMessage != null) {
           var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
           this.errorMessage = body.message;
-          console.log(errorMessage);
         }
       }
     );
@@ -100,7 +93,6 @@ export class LoginSingupComponent implements OnInit {
   onSubmitRegister(){
     this._userService.register(this.user_register).subscribe(
       response => {
-        console.log(this.user_register);
         let user = response.user;
         this.user_register = user;
 
@@ -118,7 +110,6 @@ export class LoginSingupComponent implements OnInit {
         if (errorMessage != null) {
           var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
           this.alertRegister = body.message;
-          console.log(errorMessage);
         }
       }
     );

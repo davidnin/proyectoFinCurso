@@ -2,7 +2,7 @@
 var fs = require('fs');
 var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
-var Reserved = require('../models/reserved');
+var Table = require('../models/table');
 var jwt = require('../service/jwt');
 
 function pruebaTable(req, res) {
@@ -15,12 +15,12 @@ function createTable(req, res) {
   var table = new Table();
   var params = req.body;
   console.log(params);
-  table.numberTable = params.numberTable;
-  table.maxPersons = params.maxPersons;
+  table.numberTable= params.numberTable;
+  table.maxPersons= params.maxPersons;
 
 
 
-  if (table.numberTable != null && reserved.maxPersons) {
+  if (table.numberTable != null && table.maxPersons != null) {
 
     table.save((err, tableStored) => {
       if (err) {
@@ -46,21 +46,8 @@ function createTable(req, res) {
   };
 }
 
-function getTables(req, res){
-  var albumId = req.params.album;
-
-  if(!albumId){
-    var find = Table.find({}).sort('number');
-  }else{
-    var find = Table.find({album: albumId}).sort('number');
-  }
-  find.populate({
-    path: 'album',
-    populate:{
-      path: 'artist',
-      model: 'Artist'
-    }
-  }).exec((err, tables)=>{
+function getTables(res){ 
+  Table.find({}).exec((err, tables)=>{
     if(err){
       res.status(500).send({message: "Error en la peticion"});
     }else{
@@ -92,7 +79,7 @@ function updateTable(req, res){
 
 function deleteTable(req, res){
   var tableId = req.params.id;
-  Table.findByIdAndDelete(reservedId, (err, tableDeleted)=>{
+  Table.findByIdAndDelete(tableId, (err, tableDeleted)=>{
     if(err){
       res.status(500).send({message: "Error en la peticion"});
     }else{

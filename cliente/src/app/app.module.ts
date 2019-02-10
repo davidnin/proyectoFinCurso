@@ -7,6 +7,7 @@ import { NavBarLoginComponent } from './components/nav-bar-login/nav-bar-login.c
 import { NavBarNotloginComponent } from './components/nav-bar-notlogin/nav-bar-notlogin.component';
 import { LoginSingupComponent } from './components/login-singup/login-singup.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     NavBarLoginComponent,
     NavBarNotloginComponent,
-    LoginSingupComponent
+    LoginSingupComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
