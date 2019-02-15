@@ -1,4 +1,4 @@
-export class table {
+export class Reserved {
     constructor(
         public user: string,
         public table: string,

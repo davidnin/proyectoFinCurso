@@ -17,10 +17,11 @@ function createTable(req, res) {
   console.log(params);
   table.numberTable= params.numberTable;
   table.maxPersons= params.maxPersons;
+  table.ocupada= params.ocupada;
 
 
 
-  if (table.numberTable != null && table.maxPersons != null) {
+  if (table.numberTable != null && table.maxPersons != null && table.ocupada != null) {
 
     table.save((err, tableStored) => {
       if (err) {
@@ -46,15 +47,19 @@ function createTable(req, res) {
   };
 }
 
-function getTables(res){ 
-  Table.find({}).exec((err, tables)=>{
+function getTables(req, resp){ 
+  var tables = {};
+  console.log(resp.status);
+  Table.find( function (err, table) {
+        tables[table._id] = table;
+    
     if(err){
-      res.status(500).send({message: "Error en la peticion"});
+      resp.status(500).send({message: "Error en la peticion"});
     }else{
       if(!tables){
-        res.status(404).send({message: "No hay tablas!!"});
+        resp.status(404).send({message: "No hay Mesas!!"});
       }else{
-        res.status(200).send({tables});
+        resp.status(200).send({tables});
       }
     }
   });
