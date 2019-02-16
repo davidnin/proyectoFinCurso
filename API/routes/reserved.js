@@ -12,7 +12,7 @@ var md_upload = multipart({uploadDir: './uploads/reserved'});
 
 api.get('/',ReservedController.pruebaReserved);
 api.post('/create',ReservedController.createReserved);
-api.get('/reserveds/:album?', ReservedController.getReserveds);
+api.get('/reserveds/:idUser?', ReservedController.getReserveds);
 api.put('/update/:id',ReservedController.updateReserved);
 api.delete('/delete/:id',ReservedController.deleteReserved);
 

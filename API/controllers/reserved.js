@@ -51,7 +51,10 @@ function createReserved(req, res) {
 
 function getReserveds(req, res){
   var reservedId = req.params.album;
-
+  // Aqui le passare el id de la persona logeada , por lo tanto tendre que obtener dicha id y compararla con la 
+  // todas los userId de las reservas. Una vez obtenga aquellas que estan bien , guardar su id de reserva en un array
+  // de id de reservas para luego ir buscandolas una por una hasta quetodas esten printadas. O se puede pedir un json
+  // que saldra de aqui hecho ya en el cual obtenga todas las reservas.
   if(!reservedId){
     var find = Reserved.find({}).sort('number');
   }else{

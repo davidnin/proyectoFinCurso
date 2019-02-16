@@ -4,6 +4,7 @@ import { Http , Headers , Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import {map} from 'rxjs/operators'; 
 import 'rxjs/Rx';
+import { Identifiers } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,7 @@ export class UserService {
     return this.token;
   }
 
-
+  getReserves(){
+    let idOfUser = this.identity._id;
+  }
 }
