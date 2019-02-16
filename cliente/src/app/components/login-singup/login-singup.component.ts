@@ -22,8 +22,8 @@ export class LoginSingupComponent implements OnInit {
   constructor(
     private _userService: UserService
   ) {
-    this.user = new User('', '', '', '', '', 'ROLE_USER', '');
-    this.user_register = new User('', '', '', '', '', 'ROLE_USER', '');
+    this.user = new User('', '', '', '', '', 'ROLE_USER');
+    this.user_register = new User('', '', '', '', '', 'ROLE_USER');
 
   }
 
@@ -35,6 +35,7 @@ export class LoginSingupComponent implements OnInit {
 
   public onSubmit() {
     //Aqui conseguimos los datos del usuario identificado
+    console.log(this.user);
     this._userService.signup(this.user, true).subscribe(
       response => {
         let identity = response.user;
@@ -53,7 +54,7 @@ export class LoginSingupComponent implements OnInit {
                 alert("El token no se ha generado");
               } else {
                 localStorage.setItem('token', token);
-                this.user = new User('', '', '', '', '', 'ROLE_USER', '');
+                this.user = new User('', '', '', '', '', 'ROLE_USER');
 
               }
             },
@@ -72,7 +73,7 @@ export class LoginSingupComponent implements OnInit {
         var errorMessage = <any>error;
 
         if (errorMessage != null) {
-          var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+          var body = error._body; //Filtrar por JSON para obtener aquello que querramos del objeto
           this.errorMessage = body.message;
         }
       }
@@ -99,7 +100,7 @@ export class LoginSingupComponent implements OnInit {
           this.alertRegister = "Error al registrarse";
         }else{
           this.alertRegister = "El registro ha sido correcto, identificate con: "+ this.user_register.email;
-          this.user_register =  new User('', '', '', '', '', 'ROLE_USER', '');
+          this.user_register =  new User('', '', '', '', '', 'ROLE_USER');
           
         }
       },

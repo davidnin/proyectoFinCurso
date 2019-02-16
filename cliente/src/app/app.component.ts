@@ -21,8 +21,6 @@ export class AppComponent implements DoCheck {
     this.identity = this._userService. getIdentidy();
     this.token = this._userService.getToken();
 
-    console.log(identity);
-    console.log(this.token);
   }
 }
 
