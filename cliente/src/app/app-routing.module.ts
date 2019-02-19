@@ -4,12 +4,16 @@ import { LoginSingupComponent } from './components/login-singup/login-singup.com
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AppComponent } from './app.component';
 import { ConfigUserComponent } from './components/config-user/config-user.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { CartaComponent } from './components/carta/carta.component';
 
 
 
 const routes: Routes = [
   {path:'login', component: LoginSingupComponent},
+  {path: 'contacto', component: AboutUsComponent},
   {path: 'mis-datos', component: ConfigUserComponent},
+  {path: 'carta', component: CartaComponent},
   {path: '',redirectTo: '', pathMatch: 'full'},
   {path:'**',component: NotFoundComponent}
 ];

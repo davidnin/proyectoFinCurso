@@ -71,10 +71,13 @@ export class LoginSingupComponent implements OnInit {
       },
       error => {
         var errorMessage = <any>error;
-
+        console.log(errorMessage)
         if (errorMessage != null) {
-          var body = error._body; //Filtrar por JSON para obtener aquello que querramos del objeto
-          this.errorMessage = body.message;
+          if (errorMessage.status == 404){
+            this.errorMessage = "El usuario no ha podido logearse";
+          }else{
+            this.errorMessage = "Error a la hora de obtener el usuario, prueba con otra contraseña";
+          }
         }
       }
     );

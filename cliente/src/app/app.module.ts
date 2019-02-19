@@ -9,6 +9,8 @@ import { LoginSingupComponent } from './components/login-singup/login-singup.com
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ConfigUserComponent } from './components/config-user/config-user.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { CartaComponent } from './components/carta/carta.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ConfigUserComponent } from './components/config-user/config-user.compon
     NavBarNotloginComponent,
     LoginSingupComponent,
     NotFoundComponent,
-    ConfigUserComponent
+    ConfigUserComponent,
+    AboutUsComponent,
+    CartaComponent
   ],
   imports: [
     BrowserModule,
