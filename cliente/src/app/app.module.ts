@@ -11,6 +11,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ConfigUserComponent } from './components/config-user/config-user.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartaComponent } from './components/carta/carta.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
+import { UserService } from './services/user.service';
+import { TableService } from './services/table.service';
+import { ReservedService } from './services/reserved.service';
+
 
 
 @NgModule({
@@ -22,7 +27,8 @@ import { CartaComponent } from './components/carta/carta.component';
     NotFoundComponent,
     ConfigUserComponent,
     AboutUsComponent,
-    CartaComponent
+    CartaComponent,
+    ReservaComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,7 @@ import { CartaComponent } from './components/carta/carta.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UserService,TableService,ReservedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

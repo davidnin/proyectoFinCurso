@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ConfigUserComponent } from './components/config-user/config-user.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartaComponent } from './components/carta/carta.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
 
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'contacto', component: AboutUsComponent},
   {path: 'mis-datos', component: ConfigUserComponent},
   {path: 'carta', component: CartaComponent},
+  {path: 'reserva', component: ReservaComponent},
   {path: '',redirectTo: '', pathMatch: 'full'},
   {path:'**',component: NotFoundComponent}
 ];

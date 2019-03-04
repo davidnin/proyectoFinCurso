@@ -31,7 +31,6 @@ export class ConfigUserComponent implements OnInit {
 
   ngOnInit() {
       console.log("user-edit-component-ts cargado");
-
   }
 
   onSubmit() {
@@ -96,4 +95,6 @@ export class ConfigUserComponent implements OnInit {
           xhr.send(formData);
       })
   }
+
+
 }

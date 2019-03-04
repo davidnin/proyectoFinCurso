@@ -20,7 +20,6 @@ export class NavBarLoginComponent implements OnInit {
     this.token = this._userService.getToken();
 
     console.log(identity);
-    console.log(this.token);
   }
 
   logOut(){

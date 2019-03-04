@@ -9,7 +9,7 @@ var api = express.Router();
 var multipart= require('connect-multiparty');
 var md_upload = multipart({uploadDir: './uploads/table'});
 
-
+api.get('/table/:id', TableController.getTable);
 api.get('/',TableController.pruebaTable);
 api.post('/create',TableController.createTable);
 api.get('/tables', TableController.getTables);

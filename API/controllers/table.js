@@ -65,6 +65,23 @@ function getTables(req, resp){
   });
 }
 
+function getTable(req, res){
+	var tableId = req.params.id;
+
+	Table.findById(tableId, (err, table) => {
+		if(err){
+			res.status(500).send({message: 'Error en la petición.'});
+		}else{
+			if(!table){
+				res.status(404).send({message: 'La tabla no existe'});
+			}else{
+				res.status(200).send({table});
+			}
+		}
+	});
+
+}
+
 function updateTable(req, res){
   var tableId = req.params.id;
   var update = req.body;
@@ -102,5 +119,6 @@ module.exports = {
   createTable,
   getTables,
   updateTable,
-  deleteTable
+  deleteTable,
+  getTable
 };
