@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Cliente</title>
@@ -9,12 +10,30 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="assets/JS/jquery.min.js"></script>
-  <link rel="stylesheet" href="assets/boostrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="assets/boostrap/css/bootstrap.min.css" />
   <script type="text/javascript" src="assets/boostrap/js/bootstrap.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <link rel="stylesheet" href="/assets/css/styles.css"/>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
 </head>
+
 <body>
   <app-root></app-root>
+  <script type="text/javascript">
+    $(function () {
+      $("#datepicker").datepicker();
+      $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#datepicker").datepicker("option", "showAnim", "slideDown");
+      $('[type="text"]').change(function() {
+    var date = $(this).datepicker("getDate");
+    console.log(date);
+    localStorage.setItem('fecha', JSON.stringify(date));
+
+});
+    });
+  </script>
 </body>
+
 </html>

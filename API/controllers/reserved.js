@@ -20,10 +20,14 @@ function createReserved(req, res) {
   reserved.id_user = params.id_user;
   reserved.id_table = params.id_table;
   reserved.date = params.date;
+  reserved.turno1 = params.turno1;
+  reserved.turno2 = params.turno2;
+  reserved.turno3 = params.turno3;
+  reserved.turno4 = params.turno4;
   reserved.people = params.people;
 
 
-  if (reserved.id_user != null && reserved.id_table != null && reserved.people != null) {
+  if (reserved.id_user != null && reserved.id_table != null && reserved.people != null && reserved.date != null && reserved.turno1 != null && reserved.turno2 != null && reserved.turno3 != null && reserved.turno4 != null) {
 
     reserved.save((err, reservedStored) => {
       if (err) {
@@ -104,7 +108,7 @@ function deleteReserved(req, res){
     }
   })
 }
-
+  78
 module.exports = {
   pruebaReserved,
   createReserved,

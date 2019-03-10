@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GLOBAL } from './global';
-import { Http , Headers , Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {map} from 'rxjs/operators'; 
+import { map } from 'rxjs/operators';
 import 'rxjs/Rx';
 import { Identifiers } from '@angular/compiler';
 
@@ -33,26 +33,26 @@ export class UserService {
       .pipe(map(res => res.json()));  //para consultar al metodo login de la api
   }
 
-  register(user_to_register){
-    
+  register(user_to_register) {
+
     let params = JSON.stringify(user_to_register); //para pasar a string un JSON
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this._http.post(this.url + '/register', params, { headers: headers })
-    .pipe(map(res => res.json())); //para consultar al metodo login de la api
+      .pipe(map(res => res.json())); //para consultar al metodo login de la api
   }
 
-  updateUser(user_to_update){
+  updateUser(user_to_update) {
     let params = JSON.stringify(user_to_update); //para pasar a string un JSON
 
     let headers = new Headers({
-       'Content-Type': 'application/json',
-        'Authorization' : this.getToken()
-      });
-      console.log(params);
-      console.log(headers);
-    return this._http.put(this.url + '/update-user/'+ user_to_update._id, params, { headers: headers })
+      'Content-Type': 'application/json',
+      'Authorization': this.getToken()
+    });
+    console.log(params);
+    console.log(headers);
+    return this._http.put(this.url + '/update-user/' + user_to_update._id, params, { headers: headers })
       .map(res => res.json()); //para consultar al metodo login de la api
   }
 
@@ -79,7 +79,7 @@ export class UserService {
     return this.token;
   }
 
-  getReserves(){
+  getReserves() {
     let idOfUser = this.identity._id;
   }
 }

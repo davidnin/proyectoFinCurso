@@ -7,43 +7,43 @@ import { table } from '../models/table';
 import { Reserved } from '../models/reserved';
 
 @Injectable()
-export class TableService{
+export class TableService {
     public url: string;
 
-    constructor(private _http: Http){
+    constructor(private _http: Http) {
         this.url = GLOBAL.url;
     }
 
-    getTables(token){
+    getTables(token) {
         let headers = new Headers({
-			'Content-Type':'application/json',
-			'Authorization':token
+            'Content-Type': 'application/json',
+            'Authorization': token
         });
-        let options = new RequestOptions({headers: headers});
-        return this._http.get(this.url+'/table/tables', options)
-        .map(res => res.json());  
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.url + '/table/tables', options)
+            .map(res => res.json());
     }
 
-    editTable(token, id:string, tabla: table){
+    editTable(token, id: string, tabla: table) {
         let params = JSON.stringify(tabla);
         let headers = new Headers({
-			'Content-Type':'application/json'
+            'Content-Type': 'application/json'
         });
         console.log(this.url);
         console.log(id);
         console.log(params);
         console.log(headers)
-		return this._http.put(this.url+'/table/update/'+id, params, {headers: headers})
-						 .map(res => res.json());
-	}
+        return this._http.put(this.url + '/table/update/' + id, params, { headers: headers })
+            .map(res => res.json());
+    }
 
-    getTable(token, id:string){
+    getTable(token, id: string) {
         let headers = new Headers({
-			'Content-Type':'application/json',
-			'Authorization':token
+            'Content-Type': 'application/json',
+            'Authorization': token
         });
-        let options = new RequestOptions({headers: headers});
-        return this._http.get(this.url+'/table/table/'+id, options)
-        .map(res => res.json());  
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.url + '/table/table/' + id, options)
+            .map(res => res.json());
     }
 }

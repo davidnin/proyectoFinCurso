@@ -16,15 +16,22 @@ import { AboutUsComponent } from '../about-us/about-us.component';
 export class ReservaComponent implements OnInit {
 
   public mesas: table[];
+
   public identity;
   public token;
   public url: string;
-  public alertMessage;
+
   public abrirReserva: string = "";
   public crearreserva: Reserved;
+
+  public alertMessage;
   public alertRegister: any;
+
   public id_table: any;
 
+  public fecha: any;
+  public fechaReal: any;
+  public turno: any;
 
   public tablaModificada: table;
 
@@ -35,7 +42,7 @@ export class ReservaComponent implements OnInit {
     private _tableService: TableService,
     private _reservedService: ReservedService
   ) {
-    this.crearreserva = new Reserved('', '', '', '');
+    this.crearreserva = new Reserved('', '', '', false, false, false, false, '');
     this.identity = this._userService.getIdentidy();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
@@ -47,6 +54,10 @@ export class ReservaComponent implements OnInit {
     this.getMesas();
   }
 
+
+  buscarReserva() {
+    console.log(this.fecha)
+  }
 
   getMesas() {
 
@@ -73,6 +84,27 @@ export class ReservaComponent implements OnInit {
     });
   }
 
+
+  submitForm() {
+
+    this.fecha = localStorage.getItem('fecha');
+    this.fecha = this.fecha.replace("T", " ");
+    this.fechaReal = this.fecha.split(" ", 1);
+
+    console.log(this.fechaReal)
+    var radios = document.getElementsByName('optionsRadios');
+
+    for (var i = 0, length = radios.length; i < length; i++) {
+      if (radios[i].checked) {
+        // do whatever you want with the checked radio
+        this.turno = radios[i].value;
+        // only one radio can be log  ically checked, don't check the rest
+        break;
+      }
+    }
+    console.log(this.turno);
+  }
+
   Abrirreservar(elemento) {
     this.abrirReserva = "true";
     this.id_table = elemento;
@@ -80,65 +112,66 @@ export class ReservaComponent implements OnInit {
     this.crearreserva.id_user = this.identity._id;
   }
 
-  onSubmit() {
-    this._reservedService.createReserve(this.crearreserva).subscribe(
-      response => {
-        let reserva = response;
-        this.crearreserva = reserva;
-
-        if (!reserva.date) {
-          this.alertRegister = "Error al crear la reserva";
-        } else {
-          this.alertRegister = "La reserva se ha creado correctamente, si quiere modificar-la , vaya a su perfil ";
-          this.crearreserva = new Reserved('', '', '', '');
-
-        }
-      },
-      error => {
-        var errorMessage = <any>error;
-
-        if (errorMessage != null) {
-          var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-          this.alertRegister = body.message;
-        }
-      }
-    );
-    this._tableService.getTable(this.token, this.id_table).subscribe(
-      response => {
-        if (!response.table) {
-          this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
-        } else {
-          this.tablaModificada = response.table;
-          if (this.tablaModificada.ocupada == false) {
-            this.tablaModificada.ocupada = true;
-            this._tableService.editTable(this.token, this.id_table, this.tablaModificada).subscribe(
-              response => {
-                  console.log("todo ok");
-                  this.getMesas();
-              },
-              error => {
-                var errorMessage = <any>error;
-        
-                if (errorMessage != null) {
-                  var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-                  this.alertRegister = body.message;
-                }
-                console.log(this.alertRegister);
-              }
-            );
+  /*
+    onSubmit() {
+      this._reservedService.createReserve(this.crearreserva).subscribe(
+        response => {
+          let reserva = response;
+          this.crearreserva = reserva;
+  
+          if (!reserva.date) {
+            this.alertRegister = "Error al crear la reserva";
+          } else {
+            this.alertRegister = "La reserva se ha creado correctamente, si quiere modificar-la , vaya a su perfil ";
+            this.crearreserva = new Reserved('', '', '', '');
+  
+          }
+        },
+        error => {
+          var errorMessage = <any>error;
+  
+          if (errorMessage != null) {
+            var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+            this.alertRegister = body.message;
           }
         }
-      },
-      error => {
-        var errorMessage = <any>error;
-
-        if (errorMessage != null) {
-          var body = JSON.parse(error._body);
-          //this.alertMessage = body.message;
-
-          console.log(error);
-        }
-      })
-  }
+      );
+      this._tableService.getTable(this.token, this.id_table).subscribe(
+        response => {
+          if (!response.table) {
+            this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
+          } else {
+            this.tablaModificada = response.table;
+            if (this.tablaModificada.ocupada == false) {
+              this.tablaModificada.ocupada = true;
+              this._tableService.editTable(this.token, this.id_table, this.tablaModificada).subscribe(
+                response => {
+                    console.log("todo ok");
+                    this.getMesas();
+                },
+                error => {
+                  var errorMessage = <any>error;
+          
+                  if (errorMessage != null) {
+                    var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+                    this.alertRegister = body.message;
+                  }
+                  console.log(this.alertRegister);
+                }
+              );
+            }
+          }
+        },
+        error => {
+          var errorMessage = <any>error;
+  
+          if (errorMessage != null) {
+            var body = JSON.parse(error._body);
+            //this.alertMessage = body.message;
+  
+            console.log(error);
+          }
+        })
+    }*/
 }
 

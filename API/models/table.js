@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 
 var TableSchema = Schema({
       numberTable: Number,
-      maxPersons: Number,
-      ocupada: Boolean
+      maxPersons: Number
 });
 
 module.exports = mongoose.model('Table',TableSchema);
