@@ -28,7 +28,7 @@
       $("#datepicker").datepicker("option", "showAnim", "slideDown");
       $('[type="text"]').change(function() {
     var date = $(this).datepicker("getDate");
-    console.log(date);
+    console.log("Funcionde script: "+date);
     localStorage.setItem('fecha', JSON.stringify(date));
 
 });

@@ -30,4 +30,12 @@ export class ReservedService {
       .pipe(map(res => res.json())); //para consultar al metodo login de la api
   }
 
+  getReserves() {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+
+    return this._http.get(this.url + '/reserved/reserveds', { headers: headers })
+      .pipe(map(res => res.json())); 
+
+  }
+
 }

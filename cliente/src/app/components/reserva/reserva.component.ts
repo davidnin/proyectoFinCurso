@@ -32,6 +32,10 @@ export class ReservaComponent implements OnInit {
   public fecha: any;
   public fechaReal: any;
   public turno: any;
+  public diaModificado: any;
+  public fechafinal: any;
+  public reservas: Reserved[];
+
 
   public tablaModificada: table;
 
@@ -56,8 +60,30 @@ export class ReservaComponent implements OnInit {
 
 
   buscarReserva() {
-    console.log(this.fecha)
-  }
+    console.log(this.fechafinal)
+    this._reservedService.getReserves().subscribe(
+      response => {
+        console.log(response.reserveds)
+        if(!response.reserveds){
+          this.alertMessage = 'Este album no tiene canciones';
+        }else{
+          this.reservas = response.reserveds;
+          console.log(this.reservas)
+
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+
+            if(errorMessage != null){
+              var body = JSON.parse(error._body);
+              //this.alertMessage = body.message;
+
+              console.log(error);
+            }
+      });
+
+  } 
 
   getMesas() {
 
@@ -90,10 +116,12 @@ export class ReservaComponent implements OnInit {
     this.fecha = localStorage.getItem('fecha');
     this.fecha = this.fecha.replace("T", " ");
     this.fechaReal = this.fecha.split(" ", 1);
+    this.diaModificado = this.fechaReal[0].split("-", 4);
+    this.diaModificado[2]++;
+    this.fechaReal = this.diaModificado.toString();
+    this.fechafinal = this.fechaReal.replace('"',"");
 
-    console.log(this.fechaReal)
     var radios = document.getElementsByName('optionsRadios');
-
     for (var i = 0, length = radios.length; i < length; i++) {
       if (radios[i].checked) {
         // do whatever you want with the checked radio
@@ -102,7 +130,8 @@ export class ReservaComponent implements OnInit {
         break;
       }
     }
-    console.log(this.turno);
+
+    this.buscarReserva()
   }
 
   Abrirreservar(elemento) {
