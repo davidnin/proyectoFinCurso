@@ -35,9 +35,10 @@ export class ReservaComponent implements OnInit {
   public diaModificado: any;
   public fechafinal: any;
   public reservas: Reserved[];
+  public undefined: Reserved[];
 
+  public reservaPorFecha: Reserved[] = [];
 
-  public tablaModificada: table;
 
   constructor(
     private _route: ActivatedRoute,
@@ -58,38 +59,12 @@ export class ReservaComponent implements OnInit {
     this.getMesas();
   }
 
-
-  buscarReserva() {
-    console.log(this.fechafinal)
-    this._reservedService.getReserves().subscribe(
-      response => {
-        console.log(response.reserveds)
-        if(!response.reserveds){
-          this.alertMessage = 'Este album no tiene canciones';
-        }else{
-          this.reservas = response.reserveds;
-          console.log(this.reservas)
-
-        }
-      },
-      error => {
-        var errorMessage = <any>error;
-
-            if(errorMessage != null){
-              var body = JSON.parse(error._body);
-              //this.alertMessage = body.message;
-
-              console.log(error);
-            }
-      });
-
-  } 
-
   getMesas() {
 
     this._route.params.forEach((params: Params) => {
 
       this._tableService.getTables(this.token).subscribe(
+
         response => {
           if (!response.tables.undefined) {
             this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
@@ -110,7 +85,6 @@ export class ReservaComponent implements OnInit {
     });
   }
 
-
   submitForm() {
 
     this.fecha = localStorage.getItem('fecha');
@@ -119,7 +93,7 @@ export class ReservaComponent implements OnInit {
     this.diaModificado = this.fechaReal[0].split("-", 4);
     this.diaModificado[2]++;
     this.fechaReal = this.diaModificado.toString();
-    this.fechafinal = this.fechaReal.replace('"',"");
+    this.fechafinal = this.fechaReal.replace('"', "");
 
     var radios = document.getElementsByName('optionsRadios');
     for (var i = 0, length = radios.length; i < length; i++) {
@@ -130,8 +104,86 @@ export class ReservaComponent implements OnInit {
         break;
       }
     }
-
+    console.log(this.fechafinal)
+    console.log(this.turno)
+    //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente
+    //toca hacer mejor la comprobacion para que salga por visual no por alert, cuando aplique estilos ya se hara
+    if (!this.turno) {
+      alert("No has seleccionado un turno correctamente, si quieres cercar, pon un turno valido");
+    }
     this.buscarReserva()
+  }
+
+
+  buscarReserva() {
+    this._reservedService.getReserves().subscribe(
+      response => {
+        if (!response.reserveds) {
+          this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
+        } else {
+          this.undefined = response.reserveds;
+          this.reservas = this.undefined;
+          this.filtrarReservas();
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          //this.alertMessage = body.message;
+
+          console.log(error);
+        }
+      });
+  }
+
+  filtrarReservas() {
+    this.reservaPorFecha = [];
+    for (var i = 0; i < this.reservas.length; i++) {
+      if (this.reservas[i].fecha == this.fechafinal) {
+        if (this.turno == "Turno1" && this.reservas[i].turno1) {
+          this.reservaPorFecha.push(this.reservas[i]);
+        }
+        if (this.turno == "Turno2" && this.reservas[i].turno2) {
+          this.reservaPorFecha.push(this.reservas[i]);
+        }
+        if (this.turno == "Turno3" && this.reservas[i].turno3) {
+          this.reservaPorFecha.push(this.reservas[i]);
+        }
+        if (this.turno == "Turno4" && this.reservas[i].turno4) {
+          this.reservaPorFecha.push(this.reservas[i]);
+        }
+      }
+    }
+
+    this.mostrarDisponibilidad();
+  }
+
+  mostrarDisponibilidad() {
+    var aux: boolean = false;
+    console.log(this.reservaPorFecha)
+    for (var x = 0; x < this.mesas.length; x++) {
+      for (var z = 0; z < this.reservaPorFecha.length; z++) {
+        if (this.mesas[x]._id == this.reservaPorFecha[z].id_table) {
+          console.log(this.mesas[x])
+          console.log("entra en assignar mesa ocupada")
+          aux = true;
+          this.mesas[x].ocupada = true;
+          console.log(this.mesas[x])
+        } else {
+          this.mesas[x].ocupada = false;
+        }
+      }
+      console.log(aux)
+      console.log(this.reservaPorFecha)
+      if (aux) {
+
+      } else {
+        this.mesas[x].ocupada = false;
+      }
+      console.log(this.mesas)
+    }
   }
 
   Abrirreservar(elemento) {
@@ -141,66 +193,44 @@ export class ReservaComponent implements OnInit {
     this.crearreserva.id_user = this.identity._id;
   }
 
-  /*
-    onSubmit() {
+  onSubmit() {
+    console.log(this.crearreserva.people)
+    var aux2: any;
+    for (var s = 0; s < this.mesas.length; s++) {
+      if (this.mesas[s]._id == this.crearreserva.id_table) {
+        aux2 = this.mesas[s];
+      }
+    }
+    if (this.crearreserva.people > aux2.maxPersons) {
+      alert("El numero de personas sobrepasa el limite de personas de la mesa escojida, por favor , escoja otra mesa mas grande")
+    } else {
+      this.crearreserva.fecha = this.fechafinal;
+      if (this.turno == "Turno1") {
+        this.crearreserva.turno1 = true;
+      } else if (this.turno == "Turno2") {
+        this.crearreserva.turno2 = true;
+      } else if (this.turno == "Turno3") {
+        this.crearreserva.turno3 = true;
+      } else if (this.turno == "Turno4") {
+        this.crearreserva.turno4 = true;
+      }
+
+      console.log(this.crearreserva);
+
       this._reservedService.createReserve(this.crearreserva).subscribe(
         response => {
-          let reserva = response;
-          this.crearreserva = reserva;
-  
-          if (!reserva.date) {
-            this.alertRegister = "Error al crear la reserva";
-          } else {
-            this.alertRegister = "La reserva se ha creado correctamente, si quiere modificar-la , vaya a su perfil ";
-            this.crearreserva = new Reserved('', '', '', '');
-  
-          }
+          alert("La reserva se ha creado correctamente")
         },
         error => {
           var errorMessage = <any>error;
-  
+
           if (errorMessage != null) {
             var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-            this.alertRegister = body.message;
+            this.alertMessage = body.message;
+            console.log(this.alertMessage);
           }
         }
-      );
-      this._tableService.getTable(this.token, this.id_table).subscribe(
-        response => {
-          if (!response.table) {
-            this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
-          } else {
-            this.tablaModificada = response.table;
-            if (this.tablaModificada.ocupada == false) {
-              this.tablaModificada.ocupada = true;
-              this._tableService.editTable(this.token, this.id_table, this.tablaModificada).subscribe(
-                response => {
-                    console.log("todo ok");
-                    this.getMesas();
-                },
-                error => {
-                  var errorMessage = <any>error;
-          
-                  if (errorMessage != null) {
-                    var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-                    this.alertRegister = body.message;
-                  }
-                  console.log(this.alertRegister);
-                }
-              );
-            }
-          }
-        },
-        error => {
-          var errorMessage = <any>error;
-  
-          if (errorMessage != null) {
-            var body = JSON.parse(error._body);
-            //this.alertMessage = body.message;
-  
-            console.log(error);
-          }
-        })
-    }*/
+      )
+    }
+  }
 }
-

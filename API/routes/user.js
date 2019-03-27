@@ -11,6 +11,7 @@ var md_upload = multipart({uploadDir: './uploads/users'});
 
 
 api.get('/probando-controlador',md_auth.ensureAuth,UserController.pruebas);
+api.get('/user/:id', UserController.getUser);
 api.post('/register',UserController.saveUser);
 api.post('/login',UserController.loginUser);
 api.put('/update-user/:id', md_auth.ensureAuth, UserController.updateUser);

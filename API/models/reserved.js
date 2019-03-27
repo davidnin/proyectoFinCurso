@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var ReservedSchema = Schema({
       id_user: { type: Schema.ObjectId, ref: 'User'},
       id_table: { type: Schema.ObjectId, ref: 'Table'},
-      date: String,
+      fecha: String,
       turno1: Boolean,
       turno2: Boolean,
       turno3: Boolean,

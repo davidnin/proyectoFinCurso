@@ -17,6 +17,7 @@ function createTable(req, res) {
   console.log(params);
   table.numberTable = params.numberTable;
   table.maxPersons = params.maxPersons;
+  table.ocupada = params.ocupada;
 
 
   if (table.numberTable != null && table.maxPersons != null) {

@@ -19,7 +19,7 @@ function createReserved(req, res) {
   console.log(params);
   reserved.id_user = params.id_user;
   reserved.id_table = params.id_table;
-  reserved.date = params.date;
+  reserved.fecha = params.fecha;
   reserved.turno1 = params.turno1;
   reserved.turno2 = params.turno2;
   reserved.turno3 = params.turno3;
@@ -27,7 +27,7 @@ function createReserved(req, res) {
   reserved.people = params.people;
 
 
-  if (reserved.id_user != null && reserved.id_table != null && reserved.people != null && reserved.date != null && reserved.turno1 != null && reserved.turno2 != null && reserved.turno3 != null && reserved.turno4 != null) {
+  if (reserved.id_user != null && reserved.id_table != null && reserved.people != null && reserved.fecha != null && reserved.turno1 != null && reserved.turno2 != null && reserved.turno3 != null && reserved.turno4 != null) {
 
     reserved.save((err, reservedStored) => {
       if (err) {

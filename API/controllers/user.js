@@ -97,9 +97,27 @@ function updateUser(req,res){
   });
 }
 
+function getUser(req, res) {
+  var userId = req.params.id;
+
+  User.findById(userId, (err, user) => {
+    if (err) {
+      res.status(500).send({ message: 'Error en la petición.' });
+    } else {
+      if (!user) {
+        res.status(404).send({ message: 'El user no existe' });
+      } else {
+        res.status(200).send({user: user });
+      }
+    }
+  });
+
+}
+
 module.exports={
   pruebas,
   saveUser,
   loginUser,
   updateUser,
+  getUser
 };
