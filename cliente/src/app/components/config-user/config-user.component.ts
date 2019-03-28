@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { ReservedService } from 'src/app/services/reserved.service';
+import { Reserved } from 'src/app/models/reserved';
+import { identity } from 'rxjs';
 
 @Component({
     selector: 'app-config-user',
@@ -18,8 +21,13 @@ export class ConfigUserComponent implements OnInit {
     public url: string;
     alertRegister: string;
 
+    public reservas: Reserved[];
+    public undefined: Reserved[];
+    public reservaPorId: Reserved[];
+
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        private _reservedService: ReservedService
     ) {
         this.titulo = "Actualizar los datos"
         //Aqui abajo se interactua con las sesiones del user locaStorage
@@ -31,6 +39,7 @@ export class ConfigUserComponent implements OnInit {
 
     ngOnInit() {
         console.log("user-edit-component-ts cargado");
+        this.obtenerReservas();
     }
 
     onSubmit() {
@@ -96,5 +105,40 @@ export class ConfigUserComponent implements OnInit {
         })
     }
 
+    obtenerReservas() {
+        this._reservedService.getReserves().subscribe(
+            response => {
+                if (!response.reserveds) {
+                    this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
+                } else {
+                    this.undefined = response.reserveds;
+                    this.reservas = this.undefined;
+                    this.filtrarReservas();
 
+                }
+            },
+            error => {
+                var errorMessage = <any>error;
+
+                if (errorMessage != null) {
+                    var body = JSON.parse(error._body);
+                    //this.alertMessage = body.message;
+
+                    console.log(error);
+                }
+            });
+    }
+
+    filtrarReservas() {
+        this.reservaPorId = [];
+        for (var i = 0; i < this.reservas.length; i++) {
+            if (this.reservas[i].id_user == this.identity._id) {
+                /*console.dir(this.reservas[i].fecha)
+                this.reservas[i].fecha.replace(',','-');
+                console.log(this.reservas[i].fecha)*/
+                //Intenar conseguir el casteo para poder meter la fecha separadas con - y no con ,
+                this.reservaPorId.push(this.reservas[i]);
+            }
+        }
+    }
 }

@@ -15,6 +15,7 @@ import { ReservaComponent } from './components/reserva/reserva.component';
 import { UserService } from './services/user.service';
 import { TableService } from './services/table.service';
 import { ReservedService } from './services/reserved.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -28,7 +29,8 @@ import { ReservedService } from './services/reserved.service';
     ConfigUserComponent,
     AboutUsComponent,
     CartaComponent,
-    ReservaComponent
+    ReservaComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

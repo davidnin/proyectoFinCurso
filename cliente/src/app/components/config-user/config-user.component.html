@@ -38,7 +38,26 @@
                 </form>
             </div>
             <div class="col-md-6">  
-                    
+                <h1>Tus reservas</h1>
+                <table>
+                    <thead>
+                        <th>Fecha</th>
+                        <th>Turno</th>
+                        <th>Personas</th>
+                        <th></th>
+                    </thead>
+                    <tbody *ngFor="let element of reservaPorId">
+                        <tr>
+                            <td>{{element.fecha}}</td>
+                            <td *ngIf="element.turno1">Turno 1</td>
+                            <td *ngIf="element.turno2">Turno 2</td>
+                            <td *ngIf="element.turno3">Turno 3</td>
+                            <td *ngIf="element.turno4">Turno 4</td>
+                            <td>{{element.people}}</td>
+                            <!--Boton para eliminar una reserva, nose como cojer el id pero bueno soy feliz-->
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
