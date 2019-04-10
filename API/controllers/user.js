@@ -97,6 +97,24 @@ function updateUser(req,res){
   });
 }
 
+function getUsers(req,resp){
+  var users = {};
+  console.log(resp.status);
+  User.find(function (err, user) {
+    users[user._id] = user;
+
+    if (err) {
+      resp.status(500).send({ message: "Error en la peticion" });
+    } else {
+      if (!users) {
+        resp.status(404).send({ message: "No hay Mesas!!" });
+      } else {
+        resp.status(200).send({ users });
+      }
+    }
+  });
+}
+
 function getUser(req, res) {
   var userId = req.params.id;
 
@@ -111,7 +129,21 @@ function getUser(req, res) {
       }
     }
   });
+}
 
+function deleteUser(req, res) {
+  var userId = req.params.id;
+  User.findByIdAndDelete(userId, (err, userDeleted) => {
+    if (err) {
+      res.status(500).send({ message: "Error en la peticion" });
+    } else {
+      if (!userDeleted) {
+        res.status(404).send({ message: "No se encuentra la tabla!" });
+      } else {
+        res.status(200).send({ user: userDeleted });
+      }
+    }
+  })
 }
 
 module.exports={
@@ -119,5 +151,7 @@ module.exports={
   saveUser,
   loginUser,
   updateUser,
-  getUser
+  getUser,
+  getUsers,
+  deleteUser
 };

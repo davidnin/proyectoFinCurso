@@ -172,7 +172,7 @@ export class ReservaComponent implements OnInit {
           this.mesas[x].ocupada = true;
           console.log(this.mesas[x])
         } else {
-          this.mesas[x].ocupada = false;
+          //this.mesas[x].ocupada = false;
         }
       }
       console.log(aux)
