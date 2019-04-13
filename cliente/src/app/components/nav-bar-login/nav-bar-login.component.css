@@ -1,3 +1,16 @@
-#deslogearse{
-    margin-left: 1%  !important;
+
+#barra{
+    background-color: #FFE482 !important;
+}
+
+div > a{
+    color:black !important;
+}
+
+li > a{
+    color:black !important;
+}
+
+li > a:hover{
+    background-color: #EBDFA2 !important;
 }

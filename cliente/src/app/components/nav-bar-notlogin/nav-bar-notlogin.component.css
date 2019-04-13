@@ -1,8 +1,20 @@
 
-nav{
-    padding-top: 0.5%;
+#barra{
+    background-color: #FFE482 !important;
 }
 
+div > a{
+    color:black !important;
+}
 
+li > a{
+    color:black !important;
+}
 
+li > a:hover{
+    background-color: #EBDFA2 !important;
+}
 
+#identificate{
+    background-color: black !important;
+}

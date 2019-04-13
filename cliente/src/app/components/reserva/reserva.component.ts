@@ -96,14 +96,7 @@ export class ReservaComponent implements OnInit {
     this.fechafinal = this.fechaReal.replace('"', "");
 
     var radios = document.getElementsByName('optionsRadios');
-    for (var i = 0, length = radios.length; i < length; i++) {
-      if (radios[i].checked) {
-        // do whatever you want with the checked radio
-        this.turno = radios[i].value;
-        // only one radio can be log  ically checked, don't check the rest
-        break;
-      }
-    }
+    
     console.log(this.fechafinal)
     console.log(this.turno)
     //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente

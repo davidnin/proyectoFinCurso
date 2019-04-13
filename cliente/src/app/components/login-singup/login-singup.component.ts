@@ -22,8 +22,8 @@ export class LoginSingupComponent implements OnInit {
   constructor(
     private _userService: UserService
   ) {
-    this.user = new User('', '', '', '', '', 'ROLE_USER');
-    this.user_register = new User('', '', '', '', '', 'ROLE_USER');
+    this.user = new User('', '', '', '', '', 'ROLE-USER');
+    this.user_register = new User('', '', '', '', '', 'ROLE-USER');
 
   }
 
@@ -54,7 +54,7 @@ export class LoginSingupComponent implements OnInit {
                 alert("El token no se ha generado");
               } else {
                 localStorage.setItem('token', token);
-                this.user = new User('', '', '', '', '', 'ROLE_USER');
+                this.user = new User('', '', '', '', '', 'ROLE-USER');
 
               }
             },
@@ -103,7 +103,7 @@ export class LoginSingupComponent implements OnInit {
           this.alertRegister = "Error al registrarse";
         }else{
           this.alertRegister = "El registro ha sido correcto, identificate con: "+ this.user_register.email;
-          this.user_register =  new User('', '', '', '', '', 'ROLE_USER');
+          this.user_register =  new User('', '', '', '', '', 'ROLE-USER');
           
         }
       },

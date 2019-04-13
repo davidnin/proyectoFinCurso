@@ -7,6 +7,7 @@ import { ConfigUserComponent } from './components/config-user/config-user.compon
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartaComponent } from './components/carta/carta.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { IndexComponent } from './components/index/index.component';
 
 
 
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path: 'mis-datos', component: ConfigUserComponent},
   {path: 'carta', component: CartaComponent},
   {path: 'reserva', component: ReservaComponent},
-  {path: '',redirectTo: '', pathMatch: 'full'},
+  {path: '',component: IndexComponent},
   {path:'**',component: NotFoundComponent}
 ];
 

@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ReservedService } from 'src/app/services/reserved.service';
 import { Reserved } from 'src/app/models/reserved';
 import { identity } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
     selector: 'app-config-user',
@@ -21,9 +22,13 @@ export class ConfigUserComponent implements OnInit {
     public url: string;
     alertRegister: string;
 
+    public esAdmin: boolean;
+
     public reservas: Reserved[];
     public undefined: Reserved[];
     public reservaPorId: Reserved[];
+
+    public reservasMod: Reserved[];
 
     constructor(
         private _userService: UserService,
@@ -39,7 +44,16 @@ export class ConfigUserComponent implements OnInit {
 
     ngOnInit() {
         console.log("user-edit-component-ts cargado");
+        this.opcionPerfil();
         this.obtenerReservas();
+    }
+
+    opcionPerfil() {
+        if (this.user.role == "ROLE-ADMIN") {
+            this.esAdmin = true;
+        } else {
+            this.esAdmin = false;
+        }
     }
 
     onSubmit() {
@@ -113,8 +127,8 @@ export class ConfigUserComponent implements OnInit {
                 } else {
                     this.undefined = response.reserveds;
                     this.reservas = this.undefined;
+                    this.obtenerUser();
                     this.filtrarReservas();
-
                 }
             },
             error => {
@@ -139,6 +153,43 @@ export class ConfigUserComponent implements OnInit {
                 //Intenar conseguir el casteo para poder meter la fecha separadas con - y no con ,
                 this.reservaPorId.push(this.reservas[i]);
             }
+        }
+    }
+
+    obtenerUser() {
+        this.reservasMod = this.reservas;
+        console.log(this.reservasMod);
+        for (var i = 0; i < this.reservasMod.length; i++) {
+            console.log(this.reservasMod[i].id_user)
+            this._userService.getUser(this.reservasMod[i].id_user).subscribe(
+                response => {
+                    console.log(this.user)
+                    this.user = response.user;
+
+                    if (!response.user) {
+                        this.alertMessage = "El usuario no se ha actualizad";
+                    } else {
+                        //this.user = response.user;
+                        localStorage.setItem('identity', JSON.stringify(this.user));
+
+                        if (!this.filesToUpload) {
+
+                        } else { }
+                        this.alertMessage = "Datos actualizados correctamente";
+                        this.alertRegister = "La actualizacion del usuario ha sido correcta";
+
+                    }
+                },
+                error => {
+                    var errorMessage = <any>error;
+
+                    if (errorMessage != null) {
+                        var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+                        this.alertMessage = body.message;
+                        console.log(this.alertMessage);
+                    }
+                }
+            )
         }
     }
 }

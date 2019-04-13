@@ -19,7 +19,7 @@ function saveUser(req,res){
   user.name= params.name;
   user.lastname= params.lastname;
   user.email= params.email;
-  user.role= 'ROLE-ADMIN';
+  user.role= 'ROLE-USER';
   user.table='null';
 
   if(params.password){
@@ -117,7 +117,7 @@ function getUsers(req,resp){
 
 function getUser(req, res) {
   var userId = req.params.id;
-
+  console.log(userId);
   User.findById(userId, (err, user) => {
     if (err) {
       res.status(500).send({ message: 'Error en la petición.' });
