@@ -18,6 +18,8 @@ import { ReservedService } from './services/reserved.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { ConocenosComponent } from './components/conocenos/conocenos.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentService } from './services/comment.service';
 
 
 
@@ -34,7 +36,8 @@ import { ConocenosComponent } from './components/conocenos/conocenos.component';
     ReservaComponent,
     FooterComponent,
     IndexComponent,
-    ConocenosComponent
+    ConocenosComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { ConocenosComponent } from './components/conocenos/conocenos.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [UserService,TableService,ReservedService],
+  providers: [UserService,TableService,ReservedService,CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

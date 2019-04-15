@@ -6,6 +6,8 @@ import { Reserved } from 'src/app/models/reserved';
 import { identity } from 'rxjs';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { TableService } from 'src/app/services/table.service';
+import { CommentService } from 'src/app/services/comment.service';
+import { comment } from 'src/app/models/comment';
 
 @Component({
     selector: 'app-config-user',
@@ -33,11 +35,15 @@ export class ConfigUserComponent implements OnInit {
     public nombreDelUsuario: any;
     public mesaDelUsuario: any;
 
+    public commentarios: comment[] = [];
+    public commentariosUser: comment[] = [];
+    public commentariosMod: comment[] = [];
 
     constructor(
         private _userService: UserService,
         private _tableService: TableService,
-        private _reservedService: ReservedService
+        private _reservedService: ReservedService,
+        private _commentService: CommentService
     ) {
         this.titulo = "Actualizar los datos"
         //Aqui abajo se interactua con las sesiones del user locaStorage
@@ -51,6 +57,7 @@ export class ConfigUserComponent implements OnInit {
         console.log("user-edit-component-ts cargado");
         this.opcionPerfil();
         this.obtenerReservas();
+        this.obtenerComentarios();
     }
 
     opcionPerfil() {
@@ -59,6 +66,76 @@ export class ConfigUserComponent implements OnInit {
         } else {
             this.esAdmin = false;
         }
+    }
+
+    obtenerComentarios() {
+        this._commentService.getComments().subscribe(
+            response => {
+                this.commentarios = response.comments.undefined;
+                this.commentariosMod = response.comments.undefined
+                this.obtenerUserComment();
+                this.obtenerComentariosUser();
+            },
+            error => {
+                var errorMessage = <any>error;
+
+                if (errorMessage != null) {
+                    var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+                    this.alertMessage = body.message;
+                    console.log(this.alertMessage);
+                }
+            }
+        )
+    }
+
+    obtenerUserComment() {
+        this.commentariosMod = this.commentarios;
+        for (var i = 0; i < this.commentariosMod.length; i++) {
+            this.obtenerNombreComment(i);
+        }
+    }
+    obtenerNombreComment(i) {
+        this._userService.getUser(this.commentariosMod[i].id_user).subscribe(
+            response => {
+                this.commentariosMod[i].id_user = response.user.name + " " + response.user.lastname;
+            },
+            error => {
+                var errorMessage = <any>error;
+
+                if (errorMessage != null) {
+                    var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+                    this.alertMessage = body.message;
+                    console.log(this.alertMessage);
+                }
+            }
+        )
+    }
+    obtenerComentariosUser() {
+        this.commentariosUser = [];
+        console.log(this.commentarios);
+        for (var i = 0; i < this.commentarios.length; i++) {
+            if (this.commentarios[i].id_user == this.identity._id) {
+                this.commentariosUser.push(this.commentarios[i]);
+            }
+        }
+    }
+
+    eliminarCommentario(id) {
+        this._commentService.deleteComment(id).subscribe(
+            response => {
+                console.log(response)
+                this.obtenerComentarios();
+            },
+            error => {
+                var errorMessage = <any>error;
+
+                if (errorMessage != null) {
+                    var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+                    this.alertMessage = body.message;
+                    console.log(this.alertMessage);
+                }
+            }
+        );
     }
 
     onSubmit() {
@@ -188,7 +265,6 @@ export class ConfigUserComponent implements OnInit {
 
     obtenerMesa() {
         this.reservasMod = this.reservas;
-        console.log(this.reservasMod);
         for (var i = 0; i < this.reservasMod.length; i++) {
             this.obtenerNumero(i);
         }

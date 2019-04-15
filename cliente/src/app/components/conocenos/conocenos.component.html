@@ -1,7 +1,58 @@
-<div id="tripadvisor-coments">  
-    <div id="TA_selfserveprop158" class="TA_selfserveprop"><ul id="QIiQ1z0wCqH" class="TA_links WnU8quX"><li id="8OXMhFxgkOt" class="ayzJF0z"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a></li></ul></div>
+<div id="tripadvisor-coments">
+    <div id="TA_selfserveprop158" class="TA_selfserveprop">
+        <ul id="QIiQ1z0wCqH" class="TA_links WnU8quX">
+            <li id="8OXMhFxgkOt" class="ayzJF0z"><a target="_blank" href="https://www.tripadvisor.es/"><img
+                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png"
+                        alt="TripAdvisor" /></a></li>
+        </ul>
+    </div>
 </div>
 
 <div id="tripadvisor-1">
-    <div id="TA_cdswritereviewlg219" class="TA_cdswritereviewlg"><ul id="k3f1ywH" class="TA_links OePPIUfmfSwz"><li id="zdn7bz" class="hciBlKi"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/medium-logo-12097-2.png" alt="TripAdvisor"/></a></li></ul></div>
+    <div id="TA_cdswritereviewlg219" class="TA_cdswritereviewlg">
+        <ul id="k3f1ywH" class="TA_links OePPIUfmfSwz">
+            <li id="zdn7bz" class="hciBlKi"><a target="_blank" href="https://www.tripadvisor.es/"><img
+                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/medium-logo-12097-2.png"
+                        alt="TripAdvisor" /></a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <tr *ngFor="let element of commentarios">
+            <td>{{element.id_user}}</td>
+            <td>{{element.fecha}}</td>
+            <td>{{element.texto}}</td>
+            <td>{{element.puntuacion}}</td>
+        </tr>
+    </div>
+</div>
+<div  *ngIf="esUser" class="col-md-12">
+    <div class="col-md-6">
+        <h2>Opina tu tambien!</h2>
+        <form #newComment="ngForm" (submit)="onSubmit()" method="post">
+            <p>
+                <label>Texto a introducir: </label>
+                <input type="text" #texto="ngModel" name="texto" [(ngModel)]="comment.texto" class="form-control"
+                    required>
+                <!--<span *ngIf="!name.valid && name.touched">
+                    El name es obligatorio
+                </span>
+                -->
+            </p>
+            <p>
+                <label>Puntuacion: </label>
+                <input type="number" #puntuacion="ngModel" name="puntuacion" [(ngModel)]="comment.puntuacion"
+                    class="form-control" required />
+                <!--
+                    <span *ngIf="!surname.valid && surname.touched">
+                    El Apellido es obligatorio
+                </span>
+                -->
+            </p>
+
+            <input type="submit" name="" value="Crear commentario" class="btn btn-primary">
+        </form>
+    </div>
 </div>

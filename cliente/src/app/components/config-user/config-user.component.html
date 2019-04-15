@@ -59,6 +59,25 @@
                     </tbody>
                 </table>
             </div>
+            <div *ngIf="!esAdmin" class="col-md-6">
+                <h1>Tus Comentarios</h1>
+                <table>
+                    <thead>
+                        <th>Fecha</th>
+                        <th>Descripcion</th>
+                        <th>Puntuacion</th>
+                        <th></th>
+                    </thead>
+                    <tbody *ngFor="let element of commentariosUser">
+                        <tr>
+                            <td>{{element.fecha}}</td>
+                            <td>{{element.texto}}</td>
+                            <td>{{element.puntuacion}}</td>
+                            <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div *ngIf="esAdmin" class="col-md-6">
                 <h1>Todas las reservas</h1>
                 <table>
@@ -82,6 +101,27 @@
                             <td>{{element.people}}</td>
                             <td><button (click)="eliminarReserva(element._id)">Borrar</button></td>
                             <!--Boton para eliminar una reserva, nose como cojer el id pero bueno soy feliz-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="esAdmin" class="col-md-6">
+                <h1>Todos Los Comentarios</h1>
+                <table>
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Descripcion</th>
+                        <th>Puntuacion</th>
+                        <th></th>
+                    </thead>
+                    <tbody *ngFor="let element of commentarios">
+                        <tr>
+                            <td>{{element.id_user}}</td>
+                            <td>{{element.fecha}}</td>
+                            <td>{{element.texto}}</td>
+                            <td>{{element.puntuacion}}</td>
+                            <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
                         </tr>
                     </tbody>
                 </table>

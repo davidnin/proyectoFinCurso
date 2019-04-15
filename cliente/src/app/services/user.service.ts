@@ -83,7 +83,4 @@ export class UserService {
     return this.token;
   }
 
-  getReserves() {
-    let idOfUser = this.identity._id;
-  }
 }

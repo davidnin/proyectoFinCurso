@@ -6,7 +6,6 @@ import { UserService } from 'src/app/services/user.service';
 import { ReservedService } from 'src/app/services/reserved.service';
 import { GLOBAL } from 'src/app/services/global';
 import { Reserved } from 'src/app/models/reserved';
-import { AboutUsComponent } from '../about-us/about-us.component';
 
 @Component({
   selector: 'app-reserva',
