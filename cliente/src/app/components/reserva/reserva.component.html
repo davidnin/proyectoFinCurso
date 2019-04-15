@@ -32,27 +32,93 @@
 
         </form>
       </div>
-      <div class="col-md-6">
-        <h2>Reserva</h2>
-        <table>
-          <tbody>
-            <td *ngFor="let element of mesas">
-              <button *ngIf="!element.ocupada" value="{{element._id}}" (click)="Abrirreservar(element._id)"><img
-                  src="../../../assets/images/Mesa.jpg" alt="Mesa Desocupada"></button>
-              <button *ngIf="element.ocupada" value="{{element._id}}"><img src="../../../assets/images/MesaOcupada.jpg"
-                  alt="Mesa Ocupada"></button>
-            </td>
-          </tbody>
-        </table>
+      <div *ngIf="buscando" class="col-md-6">
+        <h2>Elige una Mesa</h2>
+        <div class="col-md-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Entrada</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Ventana</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th></th>
+                <div class="primeraFila" *ngFor="let element of mesasPrimeraFila">
+                  <button *ngIf="!element.ocupada && element.maxPersons == 2" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesa.jpg"
+                      alt="Mesa Desocupada de 2"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 2" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada.jpg"
+                      alt="Mesa Ocupada de 2"></button>
+                  <button *ngIf="!element.ocupada && element.maxPersons == 8" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaocho.jpg"
+                      alt="Mesa Desocupada de 8"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 8" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada8.jpg"
+                      alt="Mesa Ocupada de 8"></button>
+                </div>
+              </tr>
+              <tr>
+                <th></th>
+                <div class="primeraFila" *ngFor="let element of mesasSegundaFila">
+                  <button *ngIf="!element.ocupada && element.maxPersons == 10" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesadiez.jpg"
+                      alt="Mesa Desocupada de 10"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 10" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaocupada10.jpg"
+                      alt="Mesa Ocupada de 10"></button>
+                </div>
+              </tr>
+              <tr>
+                <th>Lavabo</th>
+                <div class="primeraFila" *ngFor="let element of mesasTerceraFila">
+                  <button *ngIf="!element.ocupada && element.maxPersons == 6" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaseis.jpg"
+                      alt="Mesa Desocupada de 6"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 6" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada6.jpg"
+                      alt="Mesa Ocupada de 6"></button>
+                  <button *ngIf="!element.ocupada && element.maxPersons == 4" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesa4.jpg"
+                      alt="Mesa Desocupada de 4"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 4" class="mesa" value="{{element._id}}"
+                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada4.jpg"
+                      alt="Mesa Ocupada de 4"></button>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div *ngIf="abrirReserva" class="col-md-6">
         <h3>Confirmar Reserva</h3>
         <form #reservaForm="ngForm">
           <p>
             <label>Numero de personas:</label>
-            <input type="text" name="password" [(ngModel)]="crearreserva.people" class="form-control" required />
+            <input type="text" name="number" [(ngModel)]="crearreserva.people" class="form-control" required />
           </p>
           <input type="button" value="Reservar" (click)="onSubmit()" class="btn btn-primary">
+        </form>
+      </div>
+      <div *ngIf="esAdmin" class="col-md-12">
+        <h3>Añadir una Mesa</h3>
+        <form #mesaForm="ngForm">
+          <p>
+            <label>Numero Maximo de personas:</label>
+            <input type="text" name="password" value="" [(ngModel)]="mesaNueva.maxPersons" class="form-control"
+              required />
+          </p>
+          <p>
+            <label>Numero de la Mesa:</label>
+            <input type="text" name="password" value="" [(ngModel)]="mesaNueva.numberTable" class="form-control"
+              required />
+          </p>
+          <input type="button" value="Crear" (click)="crearMesa()" class="btn btn-primary">
         </form>
       </div>
     </div>

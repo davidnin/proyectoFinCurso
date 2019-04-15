@@ -1,0 +1,11 @@
+.mesa{
+    width:30%;
+}
+
+.mesa > img{
+    width: 100%;
+}
+
+.primeraFila{
+    display: inline
+}

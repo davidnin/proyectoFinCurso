@@ -24,6 +24,13 @@ export class TableService {
             .map(res => res.json());
     }
 
+    createTable(tabla: table) {
+        let params = tabla;
+        console.log(params);
+        return this._http.post(this.url + '/table/create', params)
+            .map(res => res.json());
+    }
+
     editTable(token, id: string, tabla: table) {
         let params = JSON.stringify(tabla);
         let headers = new Headers({

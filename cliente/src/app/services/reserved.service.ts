@@ -34,7 +34,15 @@ export class ReservedService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this._http.get(this.url + '/reserved/reserveds', { headers: headers })
-      .pipe(map(res => res.json())); 
+      .pipe(map(res => res.json()));
+
+  }
+
+  deleteReserves(id) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+
+    return this._http.delete(this.url + '/reserved/delete/'+id , { headers: headers })
+      .pipe(map(res => res.json()));
 
   }
 

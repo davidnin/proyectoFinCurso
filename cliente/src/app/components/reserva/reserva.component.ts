@@ -39,6 +39,13 @@ export class ReservaComponent implements OnInit {
 
   public reservaPorFecha: Reserved[] = [];
 
+  public mesasPrimeraFila: table[] = [];
+  public mesasSegundaFila: table[] = [];
+  public mesasTerceraFila: table[] = [];
+  public buscando: boolean = false;
+
+  public mesaNueva: table ;
+  public esAdmin: boolean = false;
 
   constructor(
     private _route: ActivatedRoute,
@@ -48,17 +55,31 @@ export class ReservaComponent implements OnInit {
     private _reservedService: ReservedService
   ) {
     this.crearreserva = new Reserved('', '', '', false, false, false, false, '');
+    this.mesaNueva = new table('', 0, 0, false);
     this.identity = this._userService.getIdentidy();
+    //console.log(this.identity)
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
   }
 
   ngOnInit() {
-    console.log("reserva componente ejecutado correctamente");
-
-    this.getMesas();
+    //this.cargarCalendario()
   }
-
+  /*
+    cargarCalendario() {
+        $(function () {
+          $("#datepicker").datepicker();
+          $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+          $("#datepicker").datepicker("option", "showAnim", "slideDown");
+          $('[type="text"]').change(function () {
+            var date = $(this).datepicker("getDate");
+            //console.log("Funcionde script: " + date);
+            localStorage.setItem('fecha', JSON.stringify(date));
+  
+          });
+        });
+    }
+  */
   getMesas() {
 
     this._route.params.forEach((params: Params) => {
@@ -70,6 +91,8 @@ export class ReservaComponent implements OnInit {
             this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
           } else {
             this.mesas = response.tables.undefined;
+            //console.log(this.mesas)
+            this.mapeoMesas();
           }
         },
         error => {
@@ -79,13 +102,13 @@ export class ReservaComponent implements OnInit {
             var body = JSON.parse(error._body);
             //this.alertMessage = body.message;
 
-            console.log(error);
+            //console.log(error);
           }
         })
     });
   }
 
-  submitForm() {
+  submitForm() {  
 
     this.fecha = localStorage.getItem('fecha');
     this.fecha = this.fecha.replace("T", " ");
@@ -96,17 +119,45 @@ export class ReservaComponent implements OnInit {
     this.fechafinal = this.fechaReal.replace('"', "");
 
     var radios = document.getElementsByName('optionsRadios');
-    
-    console.log(this.fechafinal)
-    console.log(this.turno)
+
+    //console.log(this.fechafinal)
+    //console.log(this.turno)
     //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente
     //toca hacer mejor la comprobacion para que salga por visual no por alert, cuando aplique estilos ya se hara
+    for (var i = 0, length = radios.length; i < length; i++) {
+      if (radios[i].checked) {
+        // do whatever you want with the checked radio
+        this.turno = radios[i].value;
+        // only one radio can be log  ically checked, don't check the rest
+        break;
+      }
+    }
     if (!this.turno) {
       alert("No has seleccionado un turno correctamente, si quieres cercar, pon un turno valido");
+    }
+    if(!this.buscando){
+      this.getMesas()
+      this.buscando = true;
     }
     this.buscarReserva()
   }
 
+  mapeoMesas() {
+    for (var i = 0, length = this.mesas.length; i < length; i++) {
+      if (this.mesas[i].maxPersons == 2 || this.mesas[i].maxPersons == 8) {
+        this.mesasPrimeraFila.push(this.mesas[i]);
+      }
+      if (this.mesas[i].maxPersons >= 10 ) {
+        this.mesasSegundaFila.push(this.mesas[i]);
+      }
+      if (this.mesas[i].maxPersons == 4 || this.mesas[i].maxPersons == 6) {
+        this.mesasTerceraFila.push(this.mesas[i]);
+      }
+    }
+    if(this.identity.role == "ROLE-ADMIN"){
+      this.esAdmin = true;
+    }
+  }
 
   buscarReserva() {
     this._reservedService.getReserves().subscribe(
@@ -126,7 +177,7 @@ export class ReservaComponent implements OnInit {
           var body = JSON.parse(error._body);
           //this.alertMessage = body.message;
 
-          console.log(error);
+          //console.log(error);
         }
       });
   }
@@ -155,27 +206,27 @@ export class ReservaComponent implements OnInit {
 
   mostrarDisponibilidad() {
     var aux: boolean = false;
-    console.log(this.reservaPorFecha)
+    //console.log(this.reservaPorFecha)
     for (var x = 0; x < this.mesas.length; x++) {
       for (var z = 0; z < this.reservaPorFecha.length; z++) {
         if (this.mesas[x]._id == this.reservaPorFecha[z].id_table) {
-          console.log(this.mesas[x])
-          console.log("entra en assignar mesa ocupada")
+          //console.log(this.mesas[x])
+          //console.log("entra en assignar mesa ocupada")
           aux = true;
           this.mesas[x].ocupada = true;
-          console.log(this.mesas[x])
+          //console.log(this.mesas[x])
         } else {
           //this.mesas[x].ocupada = false;
         }
       }
-      console.log(aux)
-      console.log(this.reservaPorFecha)
+      //console.log(aux)
+      //console.log(this.reservaPorFecha)
       if (aux) {
 
       } else {
         this.mesas[x].ocupada = false;
       }
-      console.log(this.mesas)
+      //console.log(this.mesas)
     }
   }
 
@@ -187,7 +238,7 @@ export class ReservaComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.crearreserva.people)
+    //console.log(this.crearreserva.people)
     var aux2: any;
     for (var s = 0; s < this.mesas.length; s++) {
       if (this.mesas[s]._id == this.crearreserva.id_table) {
@@ -208,7 +259,7 @@ export class ReservaComponent implements OnInit {
         this.crearreserva.turno4 = true;
       }
 
-      console.log(this.crearreserva);
+      //console.log(this.crearreserva);
 
       this._reservedService.createReserve(this.crearreserva).subscribe(
         response => {
@@ -220,10 +271,40 @@ export class ReservaComponent implements OnInit {
           if (errorMessage != null) {
             var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
             this.alertMessage = body.message;
-            console.log(this.alertMessage);
+            //console.log(this.alertMessage);
           }
         }
       )
     }
+  }
+
+
+  crearMesa(){
+    this.mesaNueva.ocupada = false;
+    var x = this.mesas.length + 1;
+    console.log(x);
+    this.mesaNueva._id = String(x);
+    //console.log(this.mesaNueva);
+    this._tableService.createTable(this.mesaNueva).subscribe(
+      response => {
+        alert("La reserva se ha creado correctamente")
+        /*this.buscando = false;
+        this.mesas = [];
+        this.mesasPrimeraFila = [];
+        this.mesasSegundaFila = [];
+        this.mesasTerceraFila = [];
+        this.getMesas();*/
+        console.log(response)
+      },
+      error => {
+        var errorMessage = <any>error;
+
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+          this.alertMessage = body.message;
+          //console.log(this.alertMessage);
+        }
+      }
+    )
   }
 }

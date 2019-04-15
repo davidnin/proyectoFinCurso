@@ -8,6 +8,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CartaComponent } from './components/carta/carta.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { IndexComponent } from './components/index/index.component';
+import { ConocenosComponent } from './components/conocenos/conocenos.component';
 
 
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'mis-datos', component: ConfigUserComponent},
   {path: 'carta', component: CartaComponent},
   {path: 'reserva', component: ReservaComponent},
+  {path: 'el-restaurante', component: ConocenosComponent},
   {path: '',component: IndexComponent},
   {path:'**',component: NotFoundComponent}
 ];
