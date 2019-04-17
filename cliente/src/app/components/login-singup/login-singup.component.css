@@ -6,3 +6,25 @@
     font-size: 75%;
     margin-left: 2%;
 }
+
+.formu{
+    background-color: #FFE482 ;
+    border-color: #EBDFA2;
+}
+
+.form-control:hover{
+    border-color: #EBDFA2 !important;
+}
+
+.botones{
+    background-color: black !important;
+    color: #FFE482;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.panel-title{
+    color: black !important;
+}
+
+

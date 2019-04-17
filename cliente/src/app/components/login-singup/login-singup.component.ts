@@ -18,6 +18,8 @@ export class LoginSingupComponent implements OnInit {
   public errorMessage;
   public alertRegister;
 
+  public escojeIniciarSesion: boolean=false;
+  public escojeRegistro: boolean=false;
 
   constructor(
     private _userService: UserService
@@ -32,8 +34,18 @@ export class LoginSingupComponent implements OnInit {
     this.token = this._userService.getToken();
   }
 
+  iniciarSesion(){
+    this.escojeIniciarSesion = true;
+    this.escojeRegistro = false;
+  }
+
+  registro(){
+    this.escojeRegistro = true;
+    this.escojeIniciarSesion = false;
+  }
 
   public onSubmit() {
+    console.log(this.user)
     //Aqui conseguimos los datos del usuario identificado
     console.log(this.user);
     this._userService.signup(this.user, true).subscribe(
@@ -55,7 +67,7 @@ export class LoginSingupComponent implements OnInit {
               } else {
                 localStorage.setItem('token', token);
                 this.user = new User('', '', '', '', '', 'ROLE-USER');
-
+                location.href="";
               }
             },
             error => {

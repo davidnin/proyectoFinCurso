@@ -5,19 +5,19 @@
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
-      <a class="navbar-brand"routerLink="">Brand</a>
+      <a class="navbar-brand" id="Logo"routerLink=""><img style="width:25%" src="../../../assets/images/Logo.jpg" alt="Logo"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav" style="width:90%">
+      <ul class="nav navbar-nav" id="navBar">
         <li class="my-2 my-lg-0"><a routerLink="el-restaurante">El Restaurante</a></li>
         <li class="my-2 my-lg-0"><a routerLink="carta" >Nuestra Carta</a></li>
         <li class="my-2 my-lg-0"><a routerLink="reserva">Reservar</a></li>
         <li class="my-2 my-lg-0"><a routerLink="contacto">Contacto</a></li>
         <ul class="nav navbar-nav navbar-right" id="deslogearse">
           <li class="my-2 my-lg-0"><a routerLink="/mis-datos"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> {{identity.name}}</a></li>
-          <li class="my-2 my-lg-0"><a routerLink=""><button type="button" class="btn btn-alert" (click)="logOut()">Cerrar Sesion</button></a></li>
+          <li class="my-2 my-lg-0"><a routerLink=""><button type="button" class="btn btn-danger" (click)="logOut()">Cerrar Sesion</button></a></li>
         </ul>
       </ul>
     </div><!-- /.navbar-collapse -->

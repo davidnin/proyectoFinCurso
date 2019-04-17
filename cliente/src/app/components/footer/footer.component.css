@@ -1,0 +1,67 @@
+.container-fluid {
+    position:fixed;
+    left:0%;
+    bottom:0%;
+    height:auto;
+    width:100%;
+    background-image: url("../../../assets/images/footer-background.jpg") ;
+  }
+
+.imgFooter{
+  width:20%;
+  margin: 3%;
+  margin-left:2%;
+}
+#Logo{
+  text-align: center;
+}
+
+#Logo label{
+    color: #FFE482;
+    font-size: 70%
+}
+
+#divllegar{
+  text-align: center;
+  margin: 3%;
+}
+
+#comollegar{
+  color:white;
+  margin-left: 1.5%;
+}
+
+#comollegar:hover{
+  color:#FFE482
+}
+
+#titulo h4{
+  color: #FFE482;
+  padding-top: 0,1%;
+  text-align: center;
+}
+
+.imgSeguir{
+  width:20%;
+  margin:1%
+}
+
+#fototwitter{
+  text-align: right;
+}
+
+#fotoCentrar{
+  text-align: center;
+}
+
+#fotoCentrar img{
+  width: 32%;
+}
+
+#fotoFacebook{
+  text-align: left;
+}
+
+#fotoFacebook img{
+  width: 35%;
+}

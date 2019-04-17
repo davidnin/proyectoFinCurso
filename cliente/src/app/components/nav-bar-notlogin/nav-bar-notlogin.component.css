@@ -13,8 +13,28 @@ li > a{
 
 li > a:hover{
     background-color: #EBDFA2 !important;
+    border-radius: 5px;
 }
 
 #identificate{
     background-color: black !important;
+    color: #FFE482;
+    border-radius: 5px;
+}
+
+#identificate:hover{
+    background-color: #FFE482 !important;
+    color: black;
+    border: 0px solid black;
+}
+
+#navBar{
+    width: 90%;
+    margin-left: 9%;
+    margin-top: -1%;
+}
+
+#logo{
+    float: right !important;
+    margin-top: -1%;
 }

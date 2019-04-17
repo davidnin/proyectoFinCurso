@@ -14,3 +14,10 @@ li > a{
 li > a:hover{
     background-color: #EBDFA2 !important;
 }
+
+#navBar{
+    width: 90%;
+    margin-left: 9%;
+    margin-top: -1%;
+
+}

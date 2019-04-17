@@ -1,76 +1,111 @@
 <div class="containter">
-  <div class="row">
-    <div class="col-md-12" *ngIf="!identity" class="margin">
-      <div class="col-md-6">
-        <h1>Inicia Sesion</h1>
-        <div *ngIf="errorMessage">
-          <div class="alert alert-info">
-            <strong>Error!</strong> {{errorMessage}}
+  <div class="col-md-12 control">
+    <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
+      <h3>Bienvenido al login</h3>
+      <label> Si ya es usuario inicie sesion y si es un nuevo usuario registrese para poder reservar online una mesa para cuando y donde quieras</label>
+    </div>
+  </div>
+  <div id="loginbox" style="margin-top:25px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Iniciar Sesion</div>
+      </div>
+
+      <div style="padding-top:15px" class="panel-body">
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+        <form class="form-horizontal" role="form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+          <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="email" #email="ngModel" name="email" [(ngModel)]="user.email" class="form-control" required
+              placeholder="email">
           </div>
-        </div>
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6">
-          <p>
-            <label> Correo Electronico:</label>
-            <input type="email" #email="ngModel" name="email" [(ngModel)]="user.email" class="form-control" required />
-            <span class="info">
-              El email es obligatorio
-            </span>
-          </p>
-          <p>
-            <label> Password:</label>
+
+          <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" #password="ngModel" name="password" [(ngModel)]="user.password" class="form-control"
-              required />
-            <span class="info">
-              La contraseña es obligatoria
-            </span>
-          </p>
-          <input type="submit" value="Entrar" class="btn btn-primary">
+              required placeholder="password">
+          </div>
+
+          <div style="margin-top:10px" class="form-group">
+            <div class="col-sm-12 controls">
+              <button type="submit" value="Entrar" class="btn btn-primary botones">Entrar</button>
+              <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 control">
+              <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                No tienes una cuenta?
+                <a onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                  <button class="botones">Registrate Aqui</button>
+                </a>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
-    <div class="col-md-12" *ngIf="!identity" class="margin">
-      <div class="col-md-6">
-        <h1>Registrate</h1>
-        <div *ngIf="alertRegister">
-          <div class="alert alert-info">
-            {{alertRegister}}
-          </div>
+  </div>
+
+
+  <div id="signupbox" style="display:none; margin-top:25px"
+    class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Registrate</div>
+        <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
+            onclick="$('#signupbox').hide(); $('#loginbox').show()"> <button class="botones">Inicia Sesion</button></a>
         </div>
-        <form class="col-md-10" #registerFrom="ngForm" (submit)="onSubmitRegister()" method="post">
-          <p>
-            <label>Nombre: </label>
-            <input type="text" #name="ngModel" name="name" [(ngModel)]="user_register.name" class="form-control"
-              required>
-            <span class="info">
-              El name es obligatorio
-            </span>
-          </p>
-          <p>
-            <p>
-              <label>Apellidos: </label>
-              <input type="text" #lastname="ngModel" name="lastname" [(ngModel)]="user_register.lastname"
-                class="form-control" required />
-              <span class="info">
-                El Apellido es obligatorio
-              </span>
-            </p>
-            <p>
-              <label>Correo Electronico: </label>
+      </div>
+      <div class="panel-body">
+        <form id="signupform" class="form-horizontal" role="form" #registerFrom="ngForm" (submit)="onSubmitRegister()"
+          method="post">
+
+          <div id="signupalert" style="display:none" class="alert alert-danger">
+            <p>Error:</p>
+            <span></span>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-md-3 control-label">Email</label>
+            <div class="col-md-9">
               <input type="email" #email="ngModel" name="email" [(ngModel)]="user_register.email" class="form-control"
                 required />
-              <span class="info">
-                El email es obligatorio
-              </span>
-            </p>
-            <p>
-              <label>Contraseña: </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="firstname" class="col-md-3 control-label">Nombre</label>
+            <div class="col-md-9">
+              <input type="text" #name="ngModel" name="name" [(ngModel)]="user_register.name" class="form-control"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastname" class="col-md-3 control-label">Apellido</label>
+            <div class="col-md-9">
+              <input type="text" #lastname="ngModel" name="lastname" [(ngModel)]="user_register.lastname"
+                class="form-control" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-md-3 control-label">Password</label>
+            <div class="col-md-9">
               <input type="password" #password="ngModel" name="password" [(ngModel)]="user_register.password"
                 class="form-control" required />
-              <span class="info">
-                El email es obligatorio
-              </span>
-            </p>
-            <input type="submit" name="" value="Registrar" class="btn btn-primary">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+              <input type="submit" name="" value="Registrar" class="btn btn-primary botones">
+            </div>
+          </div>
+          <!--
+            <div style="border-top: 1px solid #999; padding-top:20px" class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+              <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up
+                with Facebook</button>
+            </div>
+            </div>
+          -->
         </form>
       </div>
     </div>

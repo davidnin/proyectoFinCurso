@@ -1,10 +1,7 @@
-.footer{
-        position: absolute;
-        bottom: 0;
-        margin-bottom: 1%;
-}
-
 .barranav{
       position: relative;
-      
+}
+
+#cuerpo{
+      margin-bottom: 6%;
 }
