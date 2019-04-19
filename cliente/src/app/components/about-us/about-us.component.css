@@ -1,0 +1,62 @@
+
+.formu{
+    background-color: #FFE482 ;
+    border-color: #EBDFA2;
+}
+
+.form-control:hover{
+    border-color: #EBDFA2 !important;
+}
+
+.botones{
+    background-color: black !important;
+    color: #FFE482;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.alert-danger{
+    background-color: #FFE482 !important;
+    border: 0px;
+}
+
+#updatebox{
+    width: 100%;
+}
+
+.panel-title{
+    color: black !important;
+}
+
+.containter{
+    margin-left:6%;
+}
+
+.row{
+    margin-right: 0%;
+}
+
+.input-group{
+    float:left;
+}
+
+@media only screen and (max-width: 600px) {
+    .input-group{
+        float:none;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .input-group{
+        float:left;
+    }
+}
+#info{
+    padding-top:0%;
+    color: black;
+    padding-left:5%;
+}
+
+#titulocontacto{
+    margin-top:0%;
+}

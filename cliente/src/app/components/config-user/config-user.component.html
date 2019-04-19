@@ -1,45 +1,54 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <h1>{{titulo}}</h1>
-                <div *ngIf="alertRegister">
-                    <div class="alert alert-info">
-                        {{alertRegister}}
-                    </div>
-                </div>
-                <form #userUpdateFrom="ngForm" (submit)="onSubmit()" method="post">
-                    <p>
-                        <label>Nombre: </label>
+<div class="containter">
+    <div class="col-md-12 control">
+        <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
+            <h3>Bienvenido a tu perfil</h3>
+            <label>Aqui podras ver todas tus reservas como tus comentarios hacia nosotros! Tambien podras cambiar
+                informacion de tu usuario.
+            </label>
+        </div>
+    </div>
+    <div id="updatebox" style="margin-top:25px;" class="mainbox col-md-5 ">
+        <div class="panel panel-info formu">
+            <div class="panel-heading formu">
+                <div class="panel-title">Actualizar Datos</div>
+            </div>
+            <div style="padding-top:15px" class="panel-body">
+                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" (submit)="onSubmit()" method="post">
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input type="text" #name="ngModel" name="name" [(ngModel)]="user.name" class="form-control"
                             required>
-                        <span *ngIf="!name.valid && name.touched">
-                            El name es obligatorio
-                        </span>
-                    </p>
-                    <p>
-                        <p>
-                            <label>Apellidos: </label>
-                            <input type="text" #surname="ngModel" name="surname" [(ngModel)]="user.lastname"
-                                class="form-control" required />
-                            <span *ngIf="!surname.valid && surname.touched">
-                                El Apellido es obligatorio
-                            </span>
-                        </p>
-                        <p>
-                            <label>Correo Electronico: </label>
-                            <input type="email" #email="ngModel" name="email" [(ngModel)]="user.email"
-                                class="form-control" required />
-                            <span *ngIf="!email.valid && email.touched">
-                                El email es obligatorio
-                            </span>
-                        </p>
-                        <input type="submit" name="" value="Actualizar Datos" class="btn btn-primary">
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" #surname="ngModel" name="surname" [(ngModel)]="user.lastname"
+                            class="form-control" required />
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-option-horizontal"></i></span>
+                        <input type="email" #email="ngModel" name="email" [(ngModel)]="user.email" class="form-control"
+                            required />
+                    </div>
+                    <div style="margin-top:10px" class="form-group">
+                        <div class="col-sm-12 controls">
+                            <input type="submit" name="" value="Actualizar Datos" class="btn btn-primary botones">
+                            <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+                        </div>
+                    </div>
                 </form>
             </div>
-            <div *ngIf="!esAdmin" class="col-md-6">
-                <h1>Tus reservas</h1>
-                <table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5" style="margin-top:25px;">
+            <div *ngIf="!esAdmin" class="panel panel-primary formu">
+                <div class="panel-heading formu">
+                    <h3 class="panel-title">Tus reservas</h3>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <table class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Fecha</th>
                         <th>Turno</th>
@@ -54,33 +63,19 @@
                             <td *ngIf="element.turno3">Turno 3</td>
                             <td *ngIf="element.turno4">Turno 4</td>
                             <td>{{element.people}}</td>
-                            <td><button (click)="eliminarReserva(element._id)">Borrar</button></td>
+                            <td><button (click)="eliminarReserva(element._id)" class="btn btn-danger">Borrar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div *ngIf="!esAdmin" class="col-md-6">
-                <h1>Tus Comentarios</h1>
-                <table>
-                    <thead>
-                        <th>Fecha</th>
-                        <th>Descripcion</th>
-                        <th>Puntuacion</th>
-                        <th></th>
-                    </thead>
-                    <tbody *ngFor="let element of commentariosUser">
-                        <tr>
-                            <td>{{element.fecha}}</td>
-                            <td>{{element.texto}}</td>
-                            <td>{{element.puntuacion}}</td>
-                            <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div *ngIf="esAdmin" class="col-md-6">
-                <h1>Todas las reservas</h1>
-                <table>
+            <div *ngIf="esAdmin" class="panel panel-primary formu">
+                <div class="panel-heading formu">
+                    <h3 class="panel-title">Todas reservas</h3>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <table class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Numero Mesa</th>
                         <th>Email usuario</th>
@@ -99,15 +94,45 @@
                             <td *ngIf="element.turno3">Turno 3</td>
                             <td *ngIf="element.turno4">Turno 4</td>
                             <td>{{element.people}}</td>
-                            <td><button (click)="eliminarReserva(element._id)">Borrar</button></td>
-                            <!--Boton para eliminar una reserva, nose como cojer el id pero bueno soy feliz-->
+                            <td><button (click)="eliminarReserva(element._id)" class="btn btn-danger">Borrar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div *ngIf="esAdmin" class="col-md-6">
-                <h1>Todos Los Comentarios</h1>
-                <table>
+        </div>
+        <div class="col-md-5" style="margin-top:25px;">
+            <div *ngIf="!esAdmin" class="panel panel-primary formu">
+                <div class="panel-heading formu">
+                    <h3 class="panel-title">Tus Comentarios</h3>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <table class="table table-hover tabla" id="dev-table">
+                    <thead>
+                        <th>Fecha</th>
+                        <th>Descripcion</th>
+                        <th>Puntuacion</th>
+                        <th></th>
+                    </thead>
+                    <tbody *ngFor="let element of commentariosUser">
+                        <tr>
+                            <td>{{element.fecha}}</td>
+                            <td>{{element.texto}}</td>
+                            <td>{{element.puntuacion}}</td>
+                            <td><button (click)="eliminarCommentario(element._id)"
+                                    class="btn btn-danger">Borrar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="esAdmin" class="panel panel-primary formu">
+                <div class="panel-heading formu">
+                    <h3 class="panel-title">Todas los comentarios</h3>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <table class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Nombre</th>
                         <th>Fecha</th>
@@ -120,8 +145,9 @@
                             <td>{{element.id_user}}</td>
                             <td>{{element.fecha}}</td>
                             <td>{{element.texto}}</td>
-                            <td>{{element.puntuacion}}</td>
-                            <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
+                            <td>{{element.puntuacion}}/10</td>
+                            <td><button (click)="eliminarCommentario(element._id)"
+                                    class="btn btn-danger">Borrar</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -129,3 +155,48 @@
         </div>
     </div>
 </div>
+<!--
+
+   
+    <div *ngIf="!esAdmin" class="col-md-6">
+        <h1>Tus Comentarios</h1>
+        <table>
+            <thead>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Puntuacion</th>
+                <th></th>
+            </thead>
+            <tbody *ngFor="let element of commentariosUser">
+                <tr>
+                    <td>{{element.fecha}}</td>
+                    <td>{{element.texto}}</td>
+                    <td>{{element.puntuacion}}</td>
+                    <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="esAdmin" class="col-md-6">
+        <h1>Todos Los Comentarios</h1>
+        <table>
+            <thead>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Puntuacion</th>
+                <th></th>
+            </thead>
+            <tbody *ngFor="let element of commentarios">
+                <tr>
+                    <td>{{element.id_user}}</td>
+                    <td>{{element.fecha}}</td>
+                    <td>{{element.texto}}</td>
+                    <td>{{element.puntuacion}}</td>
+                    <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    -->
