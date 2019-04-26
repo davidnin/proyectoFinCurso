@@ -15,11 +15,13 @@ export class LoginSingupComponent implements OnInit {
   public user_register: User;
   public identity;
   public token;
-  public errorMessage;
-  public alertRegister;
+  public errorMessage = "";
+  public loginNotGood = "";
+  public alertRegister ;
+  public errorRegister = "";
 
-  public escojeIniciarSesion: boolean=false;
-  public escojeRegistro: boolean=false;
+  public escojeIniciarSesion: boolean = false;
+  public escojeRegistro: boolean = false;
 
   constructor(
     private _userService: UserService
@@ -34,101 +36,102 @@ export class LoginSingupComponent implements OnInit {
     this.token = this._userService.getToken();
   }
 
-  iniciarSesion(){
+  iniciarSesion() {
     this.escojeIniciarSesion = true;
     this.escojeRegistro = false;
   }
 
-  registro(){
+  registro() {
     this.escojeRegistro = true;
     this.escojeIniciarSesion = false;
   }
 
   public onSubmit() {
-    console.log(this.user)
-    //Aqui conseguimos los datos del usuario identificado
-    console.log(this.user);
-    this._userService.signup(this.user, true).subscribe(
-      response => {
-        let identity = response.user;
-        this.identity = identity;
-        if (!this.identity._id) {
-          alert("El usuario no esta correctamente identificado");
-        } else {
-          localStorage.setItem('identity', JSON.stringify(identity));
+    if (!this.user.email || !this.user.password) {
+      this.errorMessage = "Lleno";
+    } else {
+      //Aqui conseguimos los datos del usuario identificado
+      this._userService.signup(this.user, true).subscribe(
+        response => {
+          let identity = response.user;
+          this.identity = identity;
+          if (!this.identity._id) {
+            alert("El usuario no esta correctamente identificado");
+          } else {
+            localStorage.setItem('identity', JSON.stringify(identity));
 
-          this._userService.signup(this.user, true).subscribe(
-            response => {
-              let token = response.token;
-              this.token = token;
+            this._userService.signup(this.user, true).subscribe(
+              response => {
+                let token = response.token;
+                this.token = token;
 
-              if (this.token.length <= 1) {
-                alert("El token no se ha generado");
-              } else {
-                localStorage.setItem('token', token);
-                this.user = new User('', '', '', '', '', 'ROLE-USER');
-                location.href="";
+                if (this.token.length <= 1) {
+                  alert("El token no se ha generado");
+                } else {
+                  localStorage.setItem('token', token);
+                  this.user = new User('', '', '', '', '', 'ROLE-USER');
+                  location.href = "";
+                }
+              },
+              error => {
+                this.loginNotGood = "true"
               }
-            },
-            error => {
-              var errorMessage = <any>error;
-
-              if (errorMessage != null) {
-                var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-                this.errorMessage = body.message;
-              }
-            }
-          );
-        }
-      },
-      error => {
-        var errorMessage = <any>error;
-        console.log(errorMessage)
-        if (errorMessage != null) {
-          if (errorMessage.status == 404){
-            this.errorMessage = "El usuario no ha podido logearse";
-          }else{
-            this.errorMessage = "Error a la hora de obtener el usuario, prueba con otra contraseña";
+            );
           }
+        },
+        error => {
+          this.loginNotGood = "true"
         }
-      }
-    );
+      );
+    }
   }
 
-  
-  logOut(){
+  limpiarVariablesLogIn(){
+    this.loginNotGood = "";
+    this.errorMessage = "";
+  }
+
+  limpiarVariablesRegistro(){
+    this.errorRegister = "";
+  }
+
+  logOut() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     localStorage.clear();
 
-    this.identity=null;
-    this.token=null;
+    this.identity = null;
+    this.token = null;
   }
 
-  onSubmitRegister(){
-    this._userService.register(this.user_register).subscribe(
-      response => {
-        let user = response.user;
-        this.user_register = user;
+  onSubmitRegister() {
+    if (!this.user_register.email || !this.user_register.name || !this.user_register.lastname || !this.user_register.password) {
+      this.errorRegister = "Lleno";
+    } else {
+      this._userService.register(this.user_register).subscribe(
+        response => {
+          let user = response.user;
+          this.user_register = user;
 
-        if(!user._id){
-          this.alertRegister = "Error al registrarse";
-        }else{
-          this.alertRegister = "El registro ha sido correcto, identificate con: "+ this.user_register.email;
-          this.user_register =  new User('', '', '', '', '', 'ROLE-USER');
-          
-        }
-      },
-      error => {
-        var errorMessage = <any>error;
+          if (!user._id) {
+            this.alertRegister = "Error al registrarse";
+          } else {
+            this.alertRegister = "El registro ha sido correcto, identificate con: " + this.user_register.email;
+            this.user_register = new User('', '', '', '', '', 'ROLE-USER');
 
-        if (errorMessage != null) {
-          var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
-          this.alertRegister = body.message;
+          }
+        },
+        error => {
+          var errorMessage = <any>error;
+
+          if (errorMessage != null) {
+            var body = JSON.parse(error._body); //Filtrar por JSON para obtener aquello que querramos del objeto
+            this.alertRegister = body.message;
+          }
         }
-      }
-    );
+      );
+    }
+
   }
-
 }
 

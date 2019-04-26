@@ -26,10 +26,15 @@
     text-align: center;
 }
 
+
 .containter{
     margin-left:6%;
 }
 
 .row{
     margin-right: 0%;
+}
+
+#DarBaja{
+    text-align: right;
 }

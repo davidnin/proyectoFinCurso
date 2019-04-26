@@ -54,10 +54,25 @@ export class ConfigUserComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("user-edit-component-ts cargado");
         this.opcionPerfil();
         this.obtenerReservas();
         this.obtenerComentarios();
+    }
+
+    darBaja() {
+        this._userService.deleteUser(this.user._id).subscribe(
+            response => {
+                console.log(response);
+                alert("USer eliminado");
+                location.href = "/login";
+                localStorage.removeItem('identity');
+                localStorage.removeItem('token');
+                localStorage.clear();
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
 
     opcionPerfil() {
@@ -112,7 +127,6 @@ export class ConfigUserComponent implements OnInit {
     }
     obtenerComentariosUser() {
         this.commentariosUser = [];
-        console.log(this.commentarios);
         for (var i = 0; i < this.commentarios.length; i++) {
             if (this.commentarios[i].id_user == this.identity._id) {
                 this.commentariosUser.push(this.commentarios[i]);

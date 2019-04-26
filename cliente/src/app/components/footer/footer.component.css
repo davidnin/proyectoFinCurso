@@ -1,14 +1,14 @@
-.container-fluid {
+.container {
     position:fixed;
     left:0%;
     bottom:0%;
-    height:auto;
+    height:20%;
     width:100%;
     background-image: url("../../../assets/images/footer-background.jpg") ;
   }
 
 .imgFooter{
-  width:20%;
+  width:10%;
   margin: 3%;
   margin-left:2%;
 }
@@ -19,6 +19,10 @@
 #Logo label{
     color: #FFE482;
     font-size: 70%
+}
+
+#Logo img{
+  width: 20%;
 }
 
 #divllegar{
@@ -42,7 +46,7 @@
 }
 
 .imgSeguir{
-  width:20%;
+  width:10%;
   margin:1%
 }
 

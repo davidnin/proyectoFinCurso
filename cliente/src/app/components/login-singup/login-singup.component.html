@@ -2,9 +2,30 @@
   <div class="col-md-12 control">
     <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
       <h3>Bienvenido al login</h3>
-      <label> Si ya es usuario inicie sesion y si es un nuevo usuario registrese para poder reservar online una mesa para cuando y donde quieras</label>
+      <label> Si ya es usuario inicie sesion y si es un nuevo usuario registrese para poder reservar online una mesa
+        para cuando y donde quieras</label>
+      <label> Si aun no has iniciado sesion no podras reservar ninguna mesa!!</label>
     </div>
   </div>
+
+  <div class="col-md-6" *ngIf="errorMessage" id="mensajeError">
+    <div class="alert alert-danger" id="alerta" role="alert">
+      <h4>Algo a fallado!</h4>
+      El inicio de sesion no se ha podido realizar, por favor introduce email y password para iniciar sesion
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="errorRegister" id="mensajeError">
+    <div class="alert alert-danger" id="alerta" role="alert">
+      <h4>Algo a fallado!</h4>
+      El registro no se ha podido realizar, por favor procede a meter toda la informacion necesaria para darte de alta
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="loginNotGood" id="mensajeError">
+      <div class="alert alert-danger" id="alerta" role="alert">
+        <h4>Oops!</h4>
+        Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate
+      </div>
+    </div>
   <div id="loginbox" style="margin-top:25px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info formu">
       <div class="panel-heading formu">
@@ -37,7 +58,7 @@
               <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                 No tienes una cuenta?
                 <a onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                  <button class="botones">Registrate Aqui</button>
+                  <button class="botones" (click)="limpiarVariablesLogIn()">Registrate Aqui</button>
                 </a>
               </div>
             </div>
@@ -54,7 +75,7 @@
       <div class="panel-heading formu">
         <div class="panel-title">Registrate</div>
         <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
-            onclick="$('#signupbox').hide(); $('#loginbox').show()"> <button class="botones">Inicia Sesion</button></a>
+            onclick="$('#signupbox').hide(); $('#loginbox').show()"> <button class="botones" (click)="limpiarVariablesRegistro()">Inicia Sesion</button></a>
         </div>
       </div>
       <div class="panel-body">

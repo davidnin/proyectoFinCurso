@@ -17,11 +17,12 @@ function createComment(req, res) {
   console.log(params);
   comment.id_user = params.id_user;
   comment.fecha = params.fecha;
-  comment.texto = params.texto;
+  comment.titulo = params.titulo;
+  comment.descripcion = params.descripcion;
   comment.puntuacion = params.puntuacion;
 
 
-  if (comment.fecha != null && comment.texto != null) {
+  if (comment.fecha != null && comment.descripcion != null) {
 
     comment.save((err, commentStored) => {
       if (err) {

@@ -16,7 +16,7 @@ export class NavBarLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.identity = this._userService. getIdentidy();
+    this.identity = this._userService.getIdentidy();
     this.token = this._userService.getToken();
 
     console.log(identity);

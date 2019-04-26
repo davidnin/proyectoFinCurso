@@ -1,8 +1,50 @@
-<!--Carrousel que metere con boostrap el cual tendre que personalizar para que quepa bien en mi pagina-->
-<div id="carrousel">
-  
+<div class="container">
+    <div class="row">
+        <div class="col-md-8" id="fondoImg">
+            <h2>Cocina de calidad al momento! Esa es la nueva ideologia que plantea el restaurante chumi churri a sus
+                clientes</h2>
+            <a routerLink="carta"><button>Nuestra Oferta Gastronomica!</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" class="margen">
+            <h4>Novedad! Te ofrecemos la possibilidad de reservar una mesa especifica!</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" class="margen">
+            <div class="col-md-2">
+                <label>Conoce un poco mas sobre el restaurante de moda en sabadell</label>
+                <a routerLink="el-restaurante"><button>Conoce mas</button></a>
+            </div>
+            <div class="col-md-2">
+                <label>Chumi churri ofrece todo tipo de comida!</label>
+                <a routerLink="carta"><button>Descubrir mas</button></a>
+            </div>
+            <div class="col-md-2">
+                <label>La novedad la traemos nosotros, reserva ya una mesa!</label>
+                <div *ngIf="identity">
+                    <a routerLink="reserva"><button>Reservar</button></a>
+                </div>
+                <div *ngIf="!identity">
+                    <a routerLink="login"><button>Reservar</button></a>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>Como encontranos!</label>
+                <a routerLink="contacto"><button>Informate</button></a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="tripadvisor-icono">
-    <div id="TA_socialButtonBubbles700" class="TA_socialButtonBubbles"><ul id="goKeo0p" class="TA_links xiaVuL"><li id="9hurVCm0L" class="kxoSap"><a target="_blank" href="https://www.tripadvisor.es/Restaurant_Review-g227870-d4063527-Reviews-Chimi_Churri-Sabadell_Catalonia.html"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_white-21693-2.png"/></a></li></ul></div>
+    <div id="TA_socialButtonBubbles700" class="TA_socialButtonBubbles">
+        <ul id="goKeo0p" class="TA_links xiaVuL">
+            <li id="9hurVCm0L" class="kxoSap"><a target="_blank"
+                    href="https://www.tripadvisor.es/Restaurant_Review-g227870-d4063527-Reviews-Chimi_Churri-Sabadell_Catalonia.html"><img
+                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_white-21693-2.png" /></a>
+            </li>
+        </ul>
+    </div>
 </div>

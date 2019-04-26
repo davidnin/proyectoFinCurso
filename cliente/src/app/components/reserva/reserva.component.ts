@@ -108,7 +108,7 @@ export class ReservaComponent implements OnInit {
   }
 
   submitForm() {  
-
+    this.abrirReserva = "";
     this.fecha = localStorage.getItem('fecha');
     this.fecha = this.fecha.replace("T", " ");
     this.fechaReal = this.fecha.split(" ", 1);

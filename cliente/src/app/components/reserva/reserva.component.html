@@ -1,38 +1,78 @@
+<div class="containter">
+  <div class="col-md-12 control">
+    <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
+      <h3>Bienvenido a la pestaña de Reservas</h3>
+      <h6>Con los siguientes 3 pasos podras reservar una mesa en nuestro restaurante</h6>
+      <label>1-Introduce la fecha </label> <br>
+      <label>2-Introduce el turno </label>
+      <label>3-Clicka la mesa deseada, introduce las personas que cenaran en la mesa reservada </label>
+      <label>Y a disfrutar de la comida</label>
+    </div>
+  </div>
+  <div id="reservaBox" style="margin-top:25px;" class="mainbox col-md-4 ">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Introduce El Dia</div>
+      </div>
+      <div style="padding-top:15px" class="panel-body">
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+        <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" (submit)="onSubmit()" method="post">
+          <div style="margin-bottom: 25px" class="input-group">
+            <input type="text" id="datepicker" placeholder="Introduce una Fecha">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="turnoBox" style="margin-top:25px;" class="mainbox col-md-4 ">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Introduce el Turno</div>
+      </div>
+      <div style="padding-top:15px" class="panel-body">
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+        <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" (submit)="onSubmit()" method="post">
+          <div style="margin-bottom: 25px" class="input-group">
+            <form action="#n" name="theForm">
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="optionsRadios" id="Turno1" value="Turno1">
+                  Turno1
+                </label>
+              </div>
+              <div class="radio-inline" id="Turno2">
+                <label>
+                  <input type="radio" name="optionsRadios" id="Turno2" value="Turno2">
+                  Turno2
+                </label>
+              </div>
+              <div class="radio-inline" id="Turno3">
+                <label>
+                  <input type="radio" name="optionsRadios" id="Turno3" value="Turno3">
+                  Turno3
+                </label>
+              </div>
+              <div class="radio-inline" id="Turno4">
+                <label>
+                  <input type="radio" name="optionsRadios" id="Turno4" value="Turno4">
+                  Turno4
+                </label>
+              </div>
+              <button id="butonFecha" id="identificate" (click)="submitForm()">Buscar</button>
+            </form>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="col-md-12">
-        <input type="text" id="datepicker" placeholder="Introduce una Fecha">
-        <form action="#n" name="theForm">
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="optionsRadios" id="Turno1" value="Turno1">
-              Turno1
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="optionsRadios" id="Turno2" value="Turno2">
-              Turno2
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="optionsRadios" id="Turno3" value="Turno3">
-              Turno3
-            </label>
-          </div>
-          <div class="radio-inline">
-            <label>
-              <input type="radio" name="optionsRadios" id="Turno4" value="Turno4">
-              Turno4
-            </label>
-          </div>
-          <button (click)="submitForm()">Buscar</button>
-
-        </form>
-      </div>
-      <div *ngIf="buscando" class="col-md-6">
+      <div *ngIf="buscando" id="blocreserva" class="col-md-8">
         <h2>Elige una Mesa</h2>
         <div class="col-md-12">
           <table>
@@ -95,18 +135,36 @@
           </table>
         </div>
       </div>
-      <div *ngIf="abrirReserva" class="col-md-6">
-        <h3>Confirmar Reserva</h3>
-        <form #reservaForm="ngForm">
+    </div>
+  </div>
+</div>
+<div class="containter" *ngIf="abrirReserva">
+  <div id="confirmarBox" style="margin-top:25px;" class="mainbox col-md-6 ">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Confirma la Reserva</div>
+      </div>
+      <div style="padding-top:15px" class="panel-body">
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+        <form #reservaForm="ngForm" class="form-horizontal" role="form">
           <p>
             <label>Numero de personas:</label>
             <input type="text" name="number" [(ngModel)]="crearreserva.people" class="form-control" required />
           </p>
-          <input type="button" value="Reservar" (click)="onSubmit()" class="btn btn-primary">
+          <input type="button" id="identificate" value="Reservar" (click)="onSubmit()" class="btn btn-primary">
         </form>
       </div>
-      <div *ngIf="esAdmin" class="col-md-12">
-        <h3>Añadir una Mesa</h3>
+    </div>
+  </div>
+</div>
+<div class="containter" *ngIf="esAdmin">
+  <div id="confirmarBox" style="margin-top:25px;" class="mainbox col-md-6 ">
+    <div class="panel panel-info formu">
+      <div class="panel-heading formu">
+        <div class="panel-title">Crear Mesa</div>
+      </div>
+      <div style="padding-top:15px" class="panel-body">
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
         <form #mesaForm="ngForm">
           <p>
             <label>Numero Maximo de personas:</label>
@@ -118,7 +176,7 @@
             <input type="text" name="password" value="" [(ngModel)]="mesaNueva.numberTable" class="form-control"
               required />
           </p>
-          <input type="button" value="Crear" (click)="crearMesa()" class="btn btn-primary">
+          <input type="button" value="Crear" id="identificate" (click)="crearMesa()" class="btn btn-primary">
         </form>
       </div>
     </div>

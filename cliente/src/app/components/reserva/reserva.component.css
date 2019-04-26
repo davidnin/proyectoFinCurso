@@ -9,3 +9,130 @@
 .primeraFila{
     display: inline
 }
+
+
+.formu{
+    background-color: #FFE482 ;
+    border-color: #EBDFA2;
+}
+
+.form-control:hover{
+    border-color: #EBDFA2 !important;
+}
+
+.botones{
+    background-color: black !important;
+    color: #FFE482;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.panel-title{
+    color: black !important;
+}
+
+.tabla th{
+    text-align: center;
+}
+.tabla td{
+    text-align: center;
+}
+
+.containter{
+    margin-left:6%;
+}
+
+.row{
+    margin-right: 0%;
+}
+
+@media only screen and (max-width: 550px){
+    #datepicker{
+        margin-left:0% !important;
+    }
+    #butonFecha{
+        margin-left: 38%;
+    }
+}
+
+
+@media only screen and (max-width: 400px){
+    #butonFecha{
+        margin-left: 38%;
+    }
+}
+
+@media only screen and (max-width: 988px) {
+    #reservaBox{
+        margin-left:0%;
+    }
+    #datepicker{
+        text-align:center;
+        margin-left:120%;
+    }
+    #Turno2{
+        display: unset !important;
+    }
+    #Turno3{
+        padding-left: 7% !important;
+        position: unset !important;
+        top: 0% !important;
+        display: unset !important;
+    }
+    #Turno4{
+        padding-left: 7% !important;
+        position: unset !important;
+        top: 0% !important;
+        display: unset !important;
+    }
+    #butonFecha{
+        margin-left: 5% !important;
+        position: absolute !important;
+    }
+}
+
+@media only screen and (min-width: 988px) {
+    #reservaBox{
+        margin-left:15%;
+    }
+    
+}
+
+@media only screen and (max-width: 1350px) {
+    #butonFecha{
+        margin-left: 38%;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    #Turno2{
+        display: table-cell ;
+    }
+    #Turno3{
+        padding-left: 150% ;
+        position: absolute;
+        top: 3%;
+        display: table-cell ;
+    }
+    #Turno4{
+        display: table-cell ;
+        padding-left: 150% ;
+        position: absolute;
+        top: 35%;
+    }
+}
+
+#blocreserva{
+    margin-left: 15%;
+}
+
+#confirmarBox{
+    margin-left: 20%;    
+}
+
+#identificate{
+    background-color: black !important;
+    color: #FFE482;
+    border-radius: 5px;
+}
+

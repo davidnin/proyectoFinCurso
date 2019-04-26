@@ -3,7 +3,7 @@
         <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
             <h3>Bienvenido a tu perfil</h3>
             <label>Aqui podras ver todas tus reservas como tus comentarios hacia nosotros! Tambien podras cambiar
-                informacion de tu usuario.
+                informacion de tu usuario o dar te de baja de nuestra web
             </label>
         </div>
     </div>
@@ -31,8 +31,12 @@
                             required />
                     </div>
                     <div style="margin-top:10px" class="form-group">
-                        <div class="col-sm-12 controls">
+                        <div class="col-sm-4 controls">
                             <input type="submit" name="" value="Actualizar Datos" class="btn btn-primary botones">
+                            <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+                        </div>
+                        <div class="col-sm-4 controls" id="DarBaja">
+                            <input type="button" (click)="darBaja()" name="" value="Dar-se de Baja" class="btn btn-danger">
                             <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
                         </div>
                     </div>
@@ -118,7 +122,7 @@
                     <tbody *ngFor="let element of commentariosUser">
                         <tr>
                             <td>{{element.fecha}}</td>
-                            <td>{{element.texto}}</td>
+                            <td>{{element.titulo}}</td>
                             <td>{{element.puntuacion}}</td>
                             <td><button (click)="eliminarCommentario(element._id)"
                                     class="btn btn-danger">Borrar</button></td>
@@ -144,7 +148,7 @@
                         <tr>
                             <td>{{element.id_user}}</td>
                             <td>{{element.fecha}}</td>
-                            <td>{{element.texto}}</td>
+                            <td>{{element.titulo}}</td>
                             <td>{{element.puntuacion}}/10</td>
                             <td><button (click)="eliminarCommentario(element._id)"
                                     class="btn btn-danger">Borrar</button></td>
@@ -155,48 +159,3 @@
         </div>
     </div>
 </div>
-<!--
-
-   
-    <div *ngIf="!esAdmin" class="col-md-6">
-        <h1>Tus Comentarios</h1>
-        <table>
-            <thead>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Puntuacion</th>
-                <th></th>
-            </thead>
-            <tbody *ngFor="let element of commentariosUser">
-                <tr>
-                    <td>{{element.fecha}}</td>
-                    <td>{{element.texto}}</td>
-                    <td>{{element.puntuacion}}</td>
-                    <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="esAdmin" class="col-md-6">
-        <h1>Todos Los Comentarios</h1>
-        <table>
-            <thead>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Puntuacion</th>
-                <th></th>
-            </thead>
-            <tbody *ngFor="let element of commentarios">
-                <tr>
-                    <td>{{element.id_user}}</td>
-                    <td>{{element.fecha}}</td>
-                    <td>{{element.texto}}</td>
-                    <td>{{element.puntuacion}}</td>
-                    <td><button (click)="eliminarCommentario(element._id)">Borrar</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-    -->

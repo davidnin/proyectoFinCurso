@@ -43,7 +43,7 @@ export class ConocenosComponent implements OnInit {
     private _commentService: CommentService,
   ) {
     this.identity = this._userService.getIdentidy();
-    this.comment = new comment(this.identity, '', '', 0);
+    this.comment = new comment(this.identity, '', '', '', null);
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
   }
@@ -117,7 +117,7 @@ export class ConocenosComponent implements OnInit {
 
     return dd + '/' + mm + '/' + yyyy;
   }
-  
+
   addZero(i) {
     if (i < 10) {
       i = '0' + i;
@@ -126,9 +126,11 @@ export class ConocenosComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    console.log(this.comment)
-    this.comment.fecha = this.hoyFecha();
+    console.log(!this.comment.descripcion)
+    if (!this.comment.descripcion || !this.comment.puntuacion || !this.comment.titulo) {
+      this.alertMessage = "Lleno";
+    } else {
+      this.comment.fecha = this.hoyFecha();
       this._commentService.createComment(this.comment).subscribe(
         response => {
           this.obtenerComentarios();
@@ -143,5 +145,6 @@ export class ConocenosComponent implements OnInit {
           }
         }
       )
+    }
   }
 }

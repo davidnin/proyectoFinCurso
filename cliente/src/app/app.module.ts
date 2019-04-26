@@ -22,7 +22,6 @@ import { CommentComponent } from './components/comment/comment.component';
 import { CommentService } from './services/comment.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +42,7 @@ import { CommentService } from './services/comment.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [UserService,TableService,ReservedService,CommentService],
   bootstrap: [AppComponent]

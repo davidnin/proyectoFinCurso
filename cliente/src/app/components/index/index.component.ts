@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-index',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  public identity;
 
-  constructor() { }
+  constructor(
+    private _userService: UserService
+  ) { }
 
   ngOnInit() {
+    this.identity = this._userService.getIdentidy();
     
   }
 

@@ -1,58 +1,127 @@
-<div id="tripadvisor-coments">
-    <div id="TA_selfserveprop158" class="TA_selfserveprop">
-        <ul id="QIiQ1z0wCqH" class="TA_links WnU8quX">
-            <li id="8OXMhFxgkOt" class="ayzJF0z"><a target="_blank" href="https://www.tripadvisor.es/"><img
-                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png"
-                        alt="TripAdvisor" /></a></li>
-        </ul>
-    </div>
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 control">
+            <div style="padding:15px 0px; padding-left:20%; padding-right:20% ">
+                <h3>Chumi Churri</h3>
+                <label>En Chumi Churri somos especialistas en fast-food de calidad.
+                    Podrás disfrutar de comidas y cenas rápidas, ideal para cuando vas con amigos o familia.
+                    Estamos justo encima del cine del Eix Macià, así que si no te has empachado de palomitas, somos la
+                    opción ideal para después de la película.
+                    En nuestra carta encontrarás entrantes tradicionales, ensaladas y todo tipo de bocadillos hechos con
+                    el mejor pan: chapatas redondas, pan de coca, chapatas normales, sandwiches, enrollados de tortitas
+                    de maiz, flautas y una selección de delícias mexicanas y quesadillas.
 
-<div id="tripadvisor-1">
-    <div id="TA_cdswritereviewlg219" class="TA_cdswritereviewlg">
-        <ul id="k3f1ywH" class="TA_links OePPIUfmfSwz">
-            <li id="zdn7bz" class="hciBlKi"><a target="_blank" href="https://www.tripadvisor.es/"><img
-                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/medium-logo-12097-2.png"
-                        alt="TripAdvisor" /></a></li>
-        </ul>
+                    ¡Te esperamos!
+                </label>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="col-md-12">
-    <div class="col-md-6">
-        <tr *ngFor="let element of commentarios">
-            <td>{{element.id_user}}</td>
-            <td>{{element.fecha}}</td>
-            <td>{{element.texto}}</td>
-            <td>{{element.puntuacion}}</td>
-        </tr>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default widget">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment" id="imagen"></span>
+                    <h3 class="panel-title">Comentarios</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let element of commentarios">
+                            <div class="row">
+                                <div class="col-xs-10 col-md-11" id="info">
+                                    <div>
+                                        <label><strong>{{element.titulo}}</strong></label>
+                                        <div class="mic-info">
+                                            Por: {{element.id_user}}
+                                        </div>
+                                        <div class="mic-info">
+                                            Fecha: {{element.fecha}}
+                                        </div>
+                                    </div>
+                                    <div class="comment-text">
+                                        {{element.descripcion}}
+                                    </div>
+                                    <div class="comment-text">
+                                        {{element.puntuacion}} / 10
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="TA_selfserveprop120" class="TA_selfserveprop">
+                <ul id="OkNYSM" class="TA_links fEjGflk27xs">
+                    <li id="8uRxAIQca9" class="Nady1kDXR"><a target="_blank" href="https://www.tripadvisor.es/"><img
+                                src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png"
+                                alt="TripAdvisor" /></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-<div  *ngIf="esUser" class="col-md-12">
-    <div class="col-md-6">
-        <h2>Opina tu tambien!</h2>
-        <form #newComment="ngForm" (submit)="onSubmit()" method="post">
-            <p>
-                <label>Texto a introducir: </label>
-                <input type="text" #texto="ngModel" name="texto" [(ngModel)]="comment.texto" class="form-control"
-                    required>
-                <!--<span *ngIf="!name.valid && name.touched">
-                    El name es obligatorio
-                </span>
-                -->
-            </p>
-            <p>
-                <label>Puntuacion: </label>
-                <input type="number" #puntuacion="ngModel" name="puntuacion" [(ngModel)]="comment.puntuacion"
-                    class="form-control" required />
-                <!--
-                    <span *ngIf="!surname.valid && surname.touched">
-                    El Apellido es obligatorio
-                </span>
-                -->
-            </p>
-
-            <input type="submit" name="" value="Crear commentario" class="btn btn-primary">
-        </form>
+    <div class="row" *ngIf="alertMessage">
+        <div class="col-md-8">
+            <div class="alert alert-danger" id="alerta" role="alert">
+                <h4>Algo a fallado!</h4>
+                El comentario no se ha podido realizar, por favor procede a meter toda la informacion necesaria para poner tu opinion
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="opinatu" style="margin-top:25px;" *ngIf="esUser" class="col-md-8">
+            <div class="panel panel-info formu">
+                <div class="panel-heading formu">
+                    <div class="panel-title">Opina tu tambien!</div>
+                </div>
+                <div style="padding-top:15px" class="panel-body">
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                    <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" (submit)="onSubmit()"
+                        method="post">
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">Titulo: </span>
+                            <input type="text" #titulo="ngModel" name="titulo" [(ngModel)]="comment.titulo"
+                                class="form-control" required>
+                        </div>
+                        <div *ngIf="!comment.titulo" class="alert alert-danger" role="alert">
+                            El titulo es obligatorio
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">Descripcion: </span>
+                            <input type="text" #descripcion="ngModel" name="descripcion"
+                                [(ngModel)]="comment.descripcion" class="form-control" required>
+                        </div>
+                        <div *ngIf="!comment.descripcion" class="alert alert-danger" role="alert">
+                            La descripcion es obligatoria
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">Puntuacion: </span>
+                            <input type="text" #puntuacion="ngModel" name="puntuacion" [(ngModel)]="comment.puntuacion"
+                                class="form-control" required>
+                        </div>
+                        <div *ngIf="!comment.puntuacion" class="alert alert-danger" role="alert">
+                            La puntuacion es obligatoria
+                        </div>
+                        <div style="margin-top:10px" class="form-group">
+                            <div class="col-sm-4 controls">
+                                <input type="submit" name="" value="Crear commentario" class="btn btn-primary botones">
+                                <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="tripadvisor-1">
+                <div id="TA_cdswritereviewlg219" class="TA_cdswritereviewlg">
+                    <ul id="k3f1ywH" class="TA_links OePPIUfmfSwz">
+                        <li id="zdn7bz" class="hciBlKi"><a target="_blank" href="https://www.tripadvisor.es/"><img
+                                    src="https://www.tripadvisor.es/img/cdsi/img2/branding/medium-logo-12097-2.png"
+                                    alt="TripAdvisor" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

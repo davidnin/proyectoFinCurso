@@ -83,4 +83,9 @@ export class UserService {
     return this.token;
   }
 
+  deleteUser(User_To_Delete) {
+    return this._http.delete(this.url + '/delete/' + User_To_Delete)
+      .map(res => res.json());
+  }
+
 }
