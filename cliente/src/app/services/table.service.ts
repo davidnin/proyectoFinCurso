@@ -26,7 +26,6 @@ export class TableService {
 
     createTable(tabla: table) {
         let params = tabla;
-        console.log(params);
         return this._http.post(this.url + '/table/create', params)
             .map(res => res.json());
     }

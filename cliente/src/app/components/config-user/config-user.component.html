@@ -36,7 +36,8 @@
                             <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
                         </div>
                         <div class="col-sm-4 controls" id="DarBaja">
-                            <input type="button" (click)="darBaja()" name="" value="Dar-se de Baja" class="btn btn-danger">
+                            <input type="button" (click)="darBaja()" name="" value="Dar-se de Baja"
+                                class="btn btn-danger">
                             <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
                         </div>
                     </div>
@@ -47,12 +48,18 @@
     <div class="row">
         <div class="col-md-5" style="margin-top:25px;">
             <div *ngIf="!esAdmin" class="panel panel-primary formu">
-                <div class="panel-heading formu">
+                <div *ngIf="reservasVacios" class="panel-heading formu">
                     <h3 class="panel-title">Tus reservas</h3>
                     <div class="pull-right">
                     </div>
                 </div>
-                <table class="table table-hover tabla" id="dev-table">
+                <div *ngIf="!reservasVacios" class="panel-heading formu">
+                        <h3 class="panel-title">No tienes ninguna reserva? Porque no hacer la primera!</h3>
+                        <h5 class="panel-title" id="linkComment"><a routerLink="../reserva">Reserva!</a></h5>
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                <table *ngIf="reservasVacios" class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Fecha</th>
                         <th>Turno</th>
@@ -107,12 +114,18 @@
         </div>
         <div class="col-md-5" style="margin-top:25px;">
             <div *ngIf="!esAdmin" class="panel panel-primary formu">
-                <div class="panel-heading formu">
+                <div *ngIf="!comentsVacios" class="panel-heading formu">
+                    <h3 class="panel-title">No tienes ningun comentario? Porque no nos dejas tu opinion!</h3>
+                    <h5 class="panel-title" id="linkComment"><a routerLink="../el-restaurante">Comenta!</a></h5>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <div *ngIf="comentsVacios" class="panel-heading formu">
                     <h3 class="panel-title">Tus Comentarios</h3>
                     <div class="pull-right">
                     </div>
                 </div>
-                <table class="table table-hover tabla" id="dev-table">
+                <table *ngIf="comentsVacios" class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Fecha</th>
                         <th>Descripcion</th>

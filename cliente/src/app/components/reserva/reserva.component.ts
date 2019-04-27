@@ -23,7 +23,7 @@ export class ReservaComponent implements OnInit {
   public abrirReserva: string = "";
   public crearreserva: Reserved;
 
-  public alertMessage;
+  public alertMessage: boolean = false;
   public alertRegister: any;
 
   public id_table: any;
@@ -43,8 +43,11 @@ export class ReservaComponent implements OnInit {
   public mesasTerceraFila: table[] = [];
   public buscando: boolean = false;
 
-  public mesaNueva: table ;
+  public mesaNueva: table;
   public esAdmin: boolean = false;
+  public mesaCreada: boolean = false;
+
+  public errorCrearReserva;
 
   constructor(
     private _route: ActivatedRoute,
@@ -87,7 +90,7 @@ export class ReservaComponent implements OnInit {
 
         response => {
           if (!response.tables.undefined) {
-            this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
+            this.alertMessage = true;
           } else {
             this.mesas = response.tables.undefined;
             //console.log(this.mesas)
@@ -107,7 +110,7 @@ export class ReservaComponent implements OnInit {
     });
   }
 
-  submitForm() {  
+  submitForm() {
     this.abrirReserva = "";
     this.fecha = localStorage.getItem('fecha');
     this.fecha = this.fecha.replace("T", " ");
@@ -132,13 +135,15 @@ export class ReservaComponent implements OnInit {
       }
     }
     if (!this.turno) {
-      alert("No has seleccionado un turno correctamente, si quieres cercar, pon un turno valido");
+      this.alertMessage = true;
+    } else {
+      if (!this.buscando) {
+        this.alertMessage = false;
+        this.getMesas()
+        this.buscando = true;
+        this.buscarReserva()
+      }
     }
-    if(!this.buscando){
-      this.getMesas()
-      this.buscando = true;
-    }
-    this.buscarReserva()
   }
 
   mapeoMesas() {
@@ -146,14 +151,14 @@ export class ReservaComponent implements OnInit {
       if (this.mesas[i].maxPersons == 2 || this.mesas[i].maxPersons == 8) {
         this.mesasPrimeraFila.push(this.mesas[i]);
       }
-      if (this.mesas[i].maxPersons >= 10 ) {
+      if (this.mesas[i].maxPersons >= 10) {
         this.mesasSegundaFila.push(this.mesas[i]);
       }
       if (this.mesas[i].maxPersons == 4 || this.mesas[i].maxPersons == 6) {
         this.mesasTerceraFila.push(this.mesas[i]);
       }
     }
-    if(this.identity.role == "ROLE-ADMIN"){
+    if (this.identity.role == "ROLE-ADMIN") {
       this.esAdmin = true;
     }
   }
@@ -162,7 +167,7 @@ export class ReservaComponent implements OnInit {
     this._reservedService.getReserves().subscribe(
       response => {
         if (!response.reserveds) {
-          this.alertMessage = "Error a la hora de cargar las tablas. Por favor, dejenos constancia de ello enviando un correo a nuestra cuenta ···· "
+          this.alertMessage = true;
         } else {
           this.undefined = response.reserveds;
           this.reservas = this.undefined;
@@ -205,27 +210,16 @@ export class ReservaComponent implements OnInit {
 
   mostrarDisponibilidad() {
     var aux: boolean = false;
-    //console.log(this.reservaPorFecha)
     for (var x = 0; x < this.mesas.length; x++) {
       for (var z = 0; z < this.reservaPorFecha.length; z++) {
         if (this.mesas[x]._id == this.reservaPorFecha[z].id_table) {
-          //console.log(this.mesas[x])
-          //console.log("entra en assignar mesa ocupada")
           aux = true;
           this.mesas[x].ocupada = true;
-          //console.log(this.mesas[x])
-        } else {
-          //this.mesas[x].ocupada = false;
         }
       }
-      //console.log(aux)
-      //console.log(this.reservaPorFecha)
-      if (aux) {
-
-      } else {
+      if (!aux) {
         this.mesas[x].ocupada = false;
       }
-      //console.log(this.mesas)
     }
   }
 
@@ -245,8 +239,11 @@ export class ReservaComponent implements OnInit {
       }
     }
     if (this.crearreserva.people > aux2.maxPersons) {
-      alert("El numero de personas sobrepasa el limite de personas de la mesa escojida, por favor , escoja otra mesa mas grande")
+      this.errorCrearReserva = "El numero de personas sobrepasa el limite de personas de la mesa escojida, por favor , escoja otra mesa mas grande";
+    } else if ((this.crearreserva.people -1) < aux2.maxPersons - 2) {
+      this.errorCrearReserva = "El numero de personas es mas pequeño que  el limite de personas de la mesa escojida, por favor , escoja otra mesa mas pequeña";
     } else {
+      this.errorCrearReserva = null;
       this.crearreserva.fecha = this.fechafinal;
       if (this.turno == "Turno1") {
         this.crearreserva.turno1 = true;
@@ -278,7 +275,7 @@ export class ReservaComponent implements OnInit {
   }
 
 
-  crearMesa(){
+  crearMesa() {
     this.mesaNueva.ocupada = false;
     var x = this.mesas.length + 1;
     console.log(x);
@@ -287,13 +284,11 @@ export class ReservaComponent implements OnInit {
     this._tableService.createTable(this.mesaNueva).subscribe(
       response => {
         alert("La reserva se ha creado correctamente")
-        /*this.buscando = false;
+        this.buscando = false;
         this.mesas = [];
         this.mesasPrimeraFila = [];
         this.mesasSegundaFila = [];
         this.mesasTerceraFila = [];
-        this.getMesas();*/
-        console.log(response)
       },
       error => {
         var errorMessage = <any>error;

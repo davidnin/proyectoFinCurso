@@ -39,6 +39,8 @@ export class ConfigUserComponent implements OnInit {
     public commentariosUser: comment[] = [];
     public commentariosMod: comment[] = [];
 
+    public comentsVacios: boolean = false;
+    public reservasVacios: boolean = false;
     constructor(
         private _userService: UserService,
         private _tableService: TableService,
@@ -130,6 +132,7 @@ export class ConfigUserComponent implements OnInit {
         for (var i = 0; i < this.commentarios.length; i++) {
             if (this.commentarios[i].id_user == this.identity._id) {
                 this.commentariosUser.push(this.commentarios[i]);
+                this.comentsVacios = true;
             }
         }
     }
@@ -249,6 +252,7 @@ export class ConfigUserComponent implements OnInit {
                 console.log(this.reservas[i].fecha)*/
                 //Intenar conseguir el casteo para poder meter la fecha separadas con - y no con ,
                 this.reservaPorId.push(this.reservas[i]);
+                this.reservasVacios = true;
             }
         }
     }

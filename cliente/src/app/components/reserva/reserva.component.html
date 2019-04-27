@@ -5,8 +5,15 @@
       <h6>Con los siguientes 3 pasos podras reservar una mesa en nuestro restaurante</h6>
       <label>1-Introduce la fecha </label> <br>
       <label>2-Introduce el turno </label>
+      <label id="turno">(Turno 1: 12:00-14:00. Turno 2: 14:00-16:00. Turno 3: 20:00-22:00. Turno 4: 22:00-00:00)</label>
       <label>3-Clicka la mesa deseada, introduce las personas que cenaran en la mesa reservada </label>
       <label>Y a disfrutar de la comida</label>
+    </div>
+  </div>
+  <div class="col-md-12 control" *ngIf="alertMessage">
+    <div class="alert alert-danger" id="alerta" role="alert">
+      <h4>Algo a fallado!</h4>
+      La busqueda de mesas no se ha podido realizar, por favor procede a meter un dia y un turno correctamente, gracias
     </div>
   </div>
   <div id="reservaBox" style="margin-top:25px;" class="mainbox col-md-4 ">
@@ -92,15 +99,13 @@
                   <button *ngIf="!element.ocupada && element.maxPersons == 2" class="mesa" value="{{element._id}}"
                     (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesa.jpg"
                       alt="Mesa Desocupada de 2"></button>
-                  <button *ngIf="element.ocupada && element.maxPersons == 2" class="mesa" value="{{element._id}}"
-                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada.jpg"
-                      alt="Mesa Ocupada de 2"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 2" class="mesa" value="{{element._id}}"><img
+                      src="../../../assets/images/MesaOcupada.jpg" alt="Mesa Ocupada de 2"></button>
                   <button *ngIf="!element.ocupada && element.maxPersons == 8" class="mesa" value="{{element._id}}"
                     (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaocho.jpg"
                       alt="Mesa Desocupada de 8"></button>
-                  <button *ngIf="element.ocupada && element.maxPersons == 8" class="mesa" value="{{element._id}}"
-                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada8.jpg"
-                      alt="Mesa Ocupada de 8"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 8" class="mesa" value="{{element._id}}"><img
+                      src="../../../assets/images/MesaOcupada8.jpg" alt="Mesa Ocupada de 8"></button>
                 </div>
               </tr>
               <tr>
@@ -109,9 +114,8 @@
                   <button *ngIf="!element.ocupada && element.maxPersons == 10" class="mesa" value="{{element._id}}"
                     (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesadiez.jpg"
                       alt="Mesa Desocupada de 10"></button>
-                  <button *ngIf="element.ocupada && element.maxPersons == 10" class="mesa" value="{{element._id}}"
-                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaocupada10.jpg"
-                      alt="Mesa Ocupada de 10"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 10" class="mesa" value="{{element._id}}"><img
+                      src="../../../assets/images/Mesaocupada10.jpg" alt="Mesa Ocupada de 10"></button>
                 </div>
               </tr>
               <tr>
@@ -120,15 +124,13 @@
                   <button *ngIf="!element.ocupada && element.maxPersons == 6" class="mesa" value="{{element._id}}"
                     (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesaseis.jpg"
                       alt="Mesa Desocupada de 6"></button>
-                  <button *ngIf="element.ocupada && element.maxPersons == 6" class="mesa" value="{{element._id}}"
-                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada6.jpg"
-                      alt="Mesa Ocupada de 6"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 6" class="mesa" value="{{element._id}}"><img
+                      src="../../../assets/images/MesaOcupada6.jpg" alt="Mesa Ocupada de 6"></button>
                   <button *ngIf="!element.ocupada && element.maxPersons == 4" class="mesa" value="{{element._id}}"
                     (click)="Abrirreservar(element._id)"><img src="../../../assets/images/Mesa4.jpg"
                       alt="Mesa Desocupada de 4"></button>
-                  <button *ngIf="element.ocupada && element.maxPersons == 4" class="mesa" value="{{element._id}}"
-                    (click)="Abrirreservar(element._id)"><img src="../../../assets/images/MesaOcupada4.jpg"
-                      alt="Mesa Ocupada de 4"></button>
+                  <button *ngIf="element.ocupada && element.maxPersons == 4" class="mesa" value="{{element._id}}"><img
+                      src="../../../assets/images/MesaOcupada4.jpg" alt="Mesa Ocupada de 4"></button>
                 </div>
               </tr>
             </tbody>
@@ -136,6 +138,12 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="col-md-12 control" *ngIf="errorCrearReserva">
+  <div class="alert alert-danger" style="margin-top:25px;"  id="alerta" role="alert">
+    <h4>Algo a fallado!</h4>
+    {{errorCrearReserva}}
   </div>
 </div>
 <div class="containter" *ngIf="abrirReserva">
