@@ -11,19 +11,25 @@
   <div class="col-md-6" *ngIf="errorMessage" id="mensajeError">
     <div class="alert alert-danger" id="alerta" role="alert">
       <h4>Algo a fallado!</h4>
-      El inicio de sesion no se ha podido realizar, por favor introduce email y password para iniciar sesion
+      {{errorMessage}}
     </div>
   </div>
   <div class="col-md-6" *ngIf="errorRegister" id="mensajeError">
     <div class="alert alert-danger" id="alerta" role="alert">
       <h4>Algo a fallado!</h4>
-      El registro no se ha podido realizar, por favor procede a meter toda la informacion necesaria para darte de alta
+      {{errorRegister}}
     </div>
   </div>
+  <div class="col-md-6" *ngIf="usuarioExiste" id="mensajeError">
+      <div class="alert alert-danger" id="alerta" role="alert">
+        <h4>Algo a fallado!</h4>
+        {{usuarioExiste}}
+      </div>
+    </div>
   <div class="col-md-6" *ngIf="loginNotGood" id="mensajeError">
       <div class="alert alert-danger" id="alerta" role="alert">
         <h4>Oops!</h4>
-        Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate
+        {{loginNotGood}}
       </div>
     </div>
   <div id="loginbox" style="margin-top:25px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ReservedService } from 'src/app/services/reserved.service';
 import { GLOBAL } from 'src/app/services/global';
 import { Reserved } from 'src/app/models/reserved';
-
+declare var $:any;
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.component.html',
@@ -65,23 +65,21 @@ export class ReservaComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.cargarCalendario()
+    this.cargarCalendario()
   }
-  /*
-    cargarCalendario() {
-        $(function () {
-          $("#datepicker").datepicker();
-          $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
-          $("#datepicker").datepicker("option", "showAnim", "slideDown");
-          $('[type="text"]').change(function () {
-            var date = $(this).datepicker("getDate");
-            //console.log("Funcionde script: " + date);
-            localStorage.setItem('fecha', JSON.stringify(date));
-  
-          });
-        });
-    }
-  */
+  cargarCalendario() {
+    var dateToday = new Date();
+    $(function () {
+      $("#datepicker").datepicker({ numberOfMonths: 1, showButtonPanel: true, minDate: dateToday });
+      $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#datepicker").datepicker("option", "showAnim", "slideDown");
+      $('[type="text"]').change(function () {
+        var date = $(this).datepicker("getDate");
+        console.log("Funcionde script: " + date);
+        localStorage.setItem('fecha', JSON.stringify(date));
+      });
+    });
+  }
   getMesas() {
 
     this._route.params.forEach((params: Params) => {
@@ -240,7 +238,7 @@ export class ReservaComponent implements OnInit {
     }
     if (this.crearreserva.people > aux2.maxPersons) {
       this.errorCrearReserva = "El numero de personas sobrepasa el limite de personas de la mesa escojida, por favor , escoja otra mesa mas grande";
-    } else if ((this.crearreserva.people -1) < aux2.maxPersons - 2) {
+    } else if ((this.crearreserva.people - 1) < aux2.maxPersons - 2) {
       this.errorCrearReserva = "El numero de personas es mas pequeño que  el limite de personas de la mesa escojida, por favor , escoja otra mesa mas pequeña";
     } else {
       this.errorCrearReserva = null;

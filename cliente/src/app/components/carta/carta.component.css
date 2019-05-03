@@ -1,12 +1,12 @@
 
 
 .formu{
-    background-color: #FFE482 ;
-    border-color: #EBDFA2;
+    background-color: #FFD3A7 ;
+    border-color: #FFD3A7;
 }
 
 .form-control:hover{
-    border-color: #EBDFA2 !important;
+    border-color: #FFD3A7 !important;
 }
 
 .botones{
@@ -33,4 +33,52 @@
 
 .row{
     margin-right: 0%;
+}
+
+.row{
+    margin-top:40px;
+    padding: 0 10px;
+}
+
+.clickable{
+    cursor: pointer;   
+}
+
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
+}
+
+.panel-warning>.panel-heading{
+    background-color: #FFD3A7;
+}
+
+.panel-warning{
+    border: 2px solid #FFD3A7;
+}
+
+.panel-body{
+    display: none;
+    background-color: #FBEADA;
+    padding: 15px;
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+}
+
+#tituloPagina{
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Descripcion{
+    font-family: 'Open Sans', sans-serif !important;
+    width: 77%;
+}
+
+.row[_ngcontent-c3]{
+    margin-top: 2.5%;
+}
+
+.panel-title{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif !important;
 }

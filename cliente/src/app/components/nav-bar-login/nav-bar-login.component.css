@@ -1,6 +1,6 @@
 
 #barra{
-    background-color: #FFE482 !important;
+    background-color: white !important;
 }
 
 div > a{
@@ -12,12 +12,32 @@ li > a{
 }
 
 li > a:hover{
-    background-color: #EBDFA2 !important;
+    color: #FFD3A7 !important;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+    background-color: white;
 }
 
 #navBar{
     width: 90%;
     margin-left: 9%;
     margin-top: -1%;
-
 }
+
+#hamburger{
+    top: 12px !important;
+}
+
+#cerrarSesion{
+    padding-top: 8px;
+}
+
+@media screen and (max-width: 770px) {
+    #barra {
+      padding-bottom: 3%;
+    }
+    #cerrarSesion{
+        padding-top: 0px;
+    }
+  }

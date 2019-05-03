@@ -49,7 +49,6 @@ export class ConocenosComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.estaRegistrado();
     this.obtenerComentarios();
   }

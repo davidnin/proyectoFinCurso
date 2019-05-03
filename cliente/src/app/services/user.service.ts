@@ -61,6 +61,12 @@ export class UserService {
       .map(res => res.json()); //para consultar al metodo login de la api
   }
 
+  getUsers() {
+    return this._http.get(this.url + '/users/')
+      .map(res => res.json()); //para consultar al metodo login de la api
+  }
+
+
   getIdentidy() {
     let identity = JSON.parse(localStorage.getItem('identity'));
 
