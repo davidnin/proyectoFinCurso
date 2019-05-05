@@ -1,10 +1,11 @@
 <div class="containter">
   <div class="col-md-12 control">
     <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
-      <h3>Bienvenido al login</h3>
-      <label> Si ya es usuario inicie sesion y si es un nuevo usuario registrese para poder reservar online una mesa
-        para cuando y donde quieras</label>
-      <label> Si aun no has iniciado sesion no podras reservar ninguna mesa!!</label>
+      <h1 id="tituloPagina"><b>Identificate</b></h1>
+      <label id="Descripcion"><i>Si ya es usuario inicie sesion y si es un nuevo usuario registrese para poder reservar
+          online una mesa para cuando y donde quieras
+        </i></label>
+      <label id="Descripcion"><i>Si aun no has iniciado sesion no podras reservar ninguna mesa!!</i></label>
     </div>
   </div>
 
@@ -21,17 +22,23 @@
     </div>
   </div>
   <div class="col-md-6" *ngIf="usuarioExiste" id="mensajeError">
-      <div class="alert alert-danger" id="alerta" role="alert">
-        <h4>Algo a fallado!</h4>
-        {{usuarioExiste}}
-      </div>
+    <div class="alert alert-danger" id="alerta" role="alert">
+      <h4>Algo a fallado!</h4>
+      {{usuarioExiste}}
     </div>
+  </div>
   <div class="col-md-6" *ngIf="loginNotGood" id="mensajeError">
-      <div class="alert alert-danger" id="alerta" role="alert">
-        <h4>Oops!</h4>
-        {{loginNotGood}}
-      </div>
+    <div class="alert alert-danger" id="alerta" role="alert">
+      <h4>Oops!</h4>
+      {{loginNotGood}}
     </div>
+  </div>
+  <div class="col-md-6" *ngIf="usuarioCreado" id="mensajeOk">
+    <div class="alert alert-success" id="alerta" role="alert">
+      <h4>Perfecto!</h4>
+      {{usuarioCreado}}
+    </div>
+  </div>
   <div id="loginbox" style="margin-top:25px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info formu">
       <div class="panel-heading formu">
@@ -40,7 +47,7 @@
 
       <div style="padding-top:15px" class="panel-body">
         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-        <form class="form-horizontal" role="form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <form class="form-horizontal" role="form" #loginForm="ngForm">
           <div style="margin-bottom: 25px" class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input type="email" #email="ngModel" name="email" [(ngModel)]="user.email" class="form-control" required
@@ -55,7 +62,7 @@
 
           <div style="margin-top:10px" class="form-group">
             <div class="col-sm-12 controls">
-              <button type="submit" value="Entrar" class="btn btn-primary botones">Entrar</button>
+              <button (click)="iniciarSesion()" class="btn btn-primary botones">Entrar</button>
               <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
             </div>
           </div>
@@ -64,7 +71,7 @@
               <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                 No tienes una cuenta?
                 <a onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                  <button class="botones" (click)="limpiarVariablesLogIn()">Registrate Aqui</button>
+                  <button class="botones-opcion" (click)="reiniciarVariables()">Registrate Aqui</button>
                 </a>
               </div>
             </div>
@@ -81,7 +88,8 @@
       <div class="panel-heading formu">
         <div class="panel-title">Registrate</div>
         <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
-            onclick="$('#signupbox').hide(); $('#loginbox').show()"> <button class="botones" (click)="limpiarVariablesRegistro()">Inicia Sesion</button></a>
+            onclick="$('#signupbox').hide(); $('#loginbox').show()"><button class="botones-opcion"
+              (click)="reiniciarVariables()">Inicia Sesion</button></a>
         </div>
       </div>
       <div class="panel-body">

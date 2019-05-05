@@ -60,3 +60,64 @@
 #titulocontacto{
     margin-top:0%;
 }
+
+#tituloPagina{
+    font-family: 'Open Sans', sans-serif;
+}
+
+#imgTwitter{
+    min-height: 50px;
+    min-width: 50px;
+    background: url(../../../assets/images/twitter.png) no-repeat ;
+}
+
+#imgTwitter:hover{
+    background: url(../../../assets/images/twitter2.png) no-repeat ;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+#imgFace{
+    min-height: 50px;
+    min-width: 50px;
+    background: url(../../../assets/images/facebook.png) no-repeat ;
+}
+
+#imgFace:hover{
+    background: url(../../../assets/images/facebook2.png) no-repeat ;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+#imgTrip{
+    min-height: 50px;
+    min-width: 50px;
+    background: url(../../../assets/images/tripadvisor.png) no-repeat ;
+}
+
+#imgTrip:hover{
+    background: url(../../../assets/images/tripadvisor2.png) no-repeat ;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+p>a{
+    margin-right: 3%;
+}
+
+p{
+    margin-bottom:3%;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.single-contact{
+    margin-top:4%;
+}
+
+#links{
+    margin-top: 10%;
+}
+
+#mapa{
+    width: 100%;
+}

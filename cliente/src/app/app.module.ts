@@ -18,7 +18,6 @@ import { ReservedService } from './services/reserved.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { ConocenosComponent } from './components/conocenos/conocenos.component';
-import { CommentComponent } from './components/comment/comment.component';
 import { CommentService } from './services/comment.service';
 
 
@@ -35,8 +34,7 @@ import { CommentService } from './services/comment.service';
     ReservaComponent,
     FooterComponent,
     IndexComponent,
-    ConocenosComponent,
-    CommentComponent
+    ConocenosComponent
   ],
   imports: [
     BrowserModule,

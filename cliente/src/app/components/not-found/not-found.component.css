@@ -1,11 +1,10 @@
-h4{
+h3{
     color: #253858;
     margin-bottom: .8rem;
     position: relative;
     font-family: 'Raleway', sans-serif;
-    font-size: 1.5rem;
 }
-p{
+h5{
     margin-top: 0;
     margin-bottom: 1rem;
     display: block;
@@ -81,16 +80,11 @@ p{
 
 
 #botoncitoError{
-    background-color: black !important;
-    color: #FFE482;
+    background-color: #FFD3A7 !important;
+    color: black;
     border-radius: 5px;
 }
 
-#botoncitoError:hover{
-    background-color: #FFE482 !important;
-    color: black;
-    border: 0px solid black;
-}
 
 #hamb{
     width: 13%;

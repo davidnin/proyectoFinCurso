@@ -14,6 +14,6 @@ export class NotFoundComponent implements OnInit {
   }
 
   onclick(){
-    this.location.back();
-  }
+    this.location.back(); //Funcion en la cual clickando al boton de volver atras vuelve a la pagina anterior
+  } 
 }

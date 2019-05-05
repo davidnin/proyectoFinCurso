@@ -12,17 +12,17 @@
 
 
 .formu{
-    background-color: #FFE482 ;
-    border-color: #EBDFA2;
+    background-color: #FBEADA ;
+    border-color: #FBEADA;
 }
 
 .form-control:hover{
-    border-color: #EBDFA2 !important;
+    border-color: #FBEADA !important;
 }
 
 .botones{
     background-color: black !important;
-    color: #FFE482;
+    color: #FBEADA;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -132,7 +132,7 @@
 
 #identificate{
     background-color: black !important;
-    color: #FFE482;
+    color: #FBEADA;
     border-radius: 5px;
 }
 
@@ -151,4 +151,18 @@
 #alerta{
     font-size: 100%;
     margin-bottom: 1%;
+}
+
+.panel-title{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+#tituloPagina{
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Descripcion{
+    font-family: 'Open Sans', sans-serif !important;
+    width: 77%;
 }

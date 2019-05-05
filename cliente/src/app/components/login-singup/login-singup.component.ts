@@ -15,16 +15,14 @@ export class LoginSingupComponent implements OnInit {
   public user_register: User;
   public identity;
   public token;
-  public errorMessage = "";
-  public loginNotGood = "";
-  public alertRegister;
-  public errorRegister = "";
-
-  public escojeIniciarSesion: boolean = false;
-  public escojeRegistro: boolean = false;
+  public errorMessage: string;
+  public loginNotGood: string;
+  public alertRegister: string;
+  public errorRegister: string;
+  public usuarioExiste: string;
+  public usuarioCreado: string;
 
   public usuarios: Array<User>;
-  public usuarioExiste: string = null;
   constructor(
     private _userService: UserService
   ) {
@@ -36,67 +34,65 @@ export class LoginSingupComponent implements OnInit {
   ngOnInit() {
     this.identity = this._userService.getIdentidy();
     this.token = this._userService.getToken();
+    this.cargarUsers();
   }
 
-  iniciarSesion() {
-    this.escojeIniciarSesion = true;
-    this.escojeRegistro = false;
-  }
-
-  registro() {
-    this.escojeRegistro = true;
-    this.escojeIniciarSesion = false;
-  }
-
-  public onSubmit() {
-    if (!this.user.email || !this.user.password) {
-      this.errorMessage = "El inicio de sesion no se ha podido realizar, por favor introduce email y password para iniciar sesion";
-    } else {
-      //Aqui conseguimos los datos del usuario identificado
-      this._userService.signup(this.user, true).subscribe(
-        response => {
-          let identity = response.user;
-          this.identity = identity;
-          if (!this.identity._id) {
-            alert("El usuario no esta correctamente identificado");
-          } else {
-            localStorage.setItem('identity', JSON.stringify(identity));
-
-            this._userService.signup(this.user, true).subscribe(
-              response => {
-                let token = response.token;
-                this.token = token;
-
-                if (this.token.length <= 1) {
-                  alert("El token no se ha generado");
-                } else {
-                  localStorage.setItem('token', token);
-                  this.user = new User('', '', '', '', '', 'ROLE-USER');
-                  location.href = "";
-                }
-              },
-              error => {
-                this.loginNotGood = "Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate"
-              }
-            );
-          }
-        },
-        error => {
-          this.loginNotGood = "Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate"
-        }
-      );
-    }
-  }
-
-  limpiarVariablesLogIn() {
-    this.loginNotGood = "";
+  //Funcion para cuando tengas un error en el login o registro y te vas a la otra pantalla, este error desaparezca
+  reiniciarVariables() {
     this.errorMessage = "";
-  }
-
-  limpiarVariablesRegistro() {
     this.errorRegister = "";
+    this.usuarioExiste = "";
+    this.loginNotGood = null;
   }
 
+  //Metodo para cargar todos los usuarios y a posteriori, comprobar el email del registro con todos los emails de los users ya 
+  //creados
+  cargarUsers() {
+    this._userService.getUsers().subscribe(
+      response => {
+        this.usuarios = response.users.undefined
+      }
+    )
+  }
+
+  //Metodo que coje los datos introducidor por el usuario y los cotiza con la bbdd, si son correctos se logea, sino peta
+  public iniciarSesion() {
+    //Aqui conseguimos los datos del usuario identificado
+    this._userService.signup(this.user, true).subscribe(
+      response => {
+        let identity = response.user;
+        this.identity = identity;
+        if (!this.identity._id) {
+          alert("El usuario no esta correctamente identificado");
+        } else {
+          localStorage.setItem('identity', JSON.stringify(identity));
+
+          this._userService.signup(this.user, true).subscribe(
+            response => {
+              let token = response.token;
+              this.token = token;
+              if (this.token.length <= 1) {
+                alert("El token no se ha generado");
+              } else {
+                localStorage.setItem('token', token);
+                this.user = new User('', '', '', '', '', 'ROLE-USER');
+                location.href = "";
+              }
+            },
+            error => {
+              this.loginNotGood = "Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate"
+            }
+          );
+        }
+      },
+      error => {
+        this.loginNotGood = "Su email o su pasword son incorrectos, por favor, vuelve a introducir estos campos o registrate"
+      }
+    );
+  }
+
+
+//Metodo para cerrar sesion 
   logOut() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
@@ -106,13 +102,9 @@ export class LoginSingupComponent implements OnInit {
     this.token = null;
   }
 
+  //Metodo para registrarse, primero comprobaremos que la PK ( en este caso el email) no coincida con ningun otro de ningun user
+  // y luego ya pasaremos a cotejar los datos con la bbdd y asi crear el nuevo usuario
   onSubmitRegister() {
-
-    this._userService.getUsers().subscribe(
-      response => {
-        this.usuarios = response.users.undefined
-      }
-    )
 
     for (var i = 0, length = this.usuarios.length; i < length; i++) {
       if (this.usuarios[i].email == this.user_register.email) {
@@ -120,8 +112,8 @@ export class LoginSingupComponent implements OnInit {
       }
       console.log("hace el bucle")
     }
-
-    if (this.usuarioExiste == null) {
+    console.log(this.usuarioExiste)
+    if (this.usuarioExiste == "") {
       console.log("entraBien")
       if (!this.user_register.email || !this.user_register.name || !this.user_register.lastname || !this.user_register.password) {
         this.errorRegister = "El registro no se ha podido realizar, por favor procede a meter toda la informacion necesaria para darte de alta";
@@ -130,7 +122,7 @@ export class LoginSingupComponent implements OnInit {
           response => {
             let user = response.user;
             this.user_register = user;
-
+            this.usuarioCreado = "El registro se ha hecho correctamente, prueba de iniciar sesion con este mail: "+ this.user_register.email;            
             if (!user._id) {
               this.alertRegister = "Error al registrarse";
             } else {

@@ -1,10 +1,10 @@
 <div class="containter">
     <div class="col-md-12 control">
-        <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
-            <h3>Bienvenido a tu perfil</h3>
-            <label>Aqui podras ver todas tus reservas como tus comentarios hacia nosotros! Tambien podras cambiar
-                informacion de tu usuario o dar te de baja de nuestra web
-            </label>
+        <div style="padding-top:15px; padding-left:16%; padding-right:16% ">
+            <h1 id="tituloPagina"><b>Perfil</b></h1>
+            <label id="Descripcion"><i>Aqui podras ver todas tus reservas como tus comentarios hacia nosotros! Tambien
+                    podras cambiar informacion de tu usuario o dar te de baja de nuestra web
+                </i></label>
         </div>
     </div>
     <div id="updatebox" style="margin-top:25px;" class="mainbox col-md-5 ">
@@ -31,11 +31,11 @@
                             required />
                     </div>
                     <div style="margin-top:10px" class="form-group">
-                        <div class="col-sm-4 controls">
+                        <div class="col-sm-6 controls">
                             <input type="submit" name="" value="Actualizar Datos" class="btn btn-primary botones">
                             <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
                         </div>
-                        <div class="col-sm-4 controls" id="DarBaja">
+                        <div class="col-sm-6 controls" id="DarBaja">
                             <input type="button" (click)="darBaja()" name="" value="Dar-se de Baja"
                                 class="btn btn-danger">
                             <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5" style="margin-top:25px;">
+        <div class="col-md-6" style="margin-top:25px;">
             <div *ngIf="!esAdmin" class="panel panel-primary formu">
                 <div *ngIf="reservasVacios" class="panel-heading formu">
                     <h3 class="panel-title">Tus reservas</h3>
@@ -54,11 +54,11 @@
                     </div>
                 </div>
                 <div *ngIf="!reservasVacios" class="panel-heading formu">
-                        <h3 class="panel-title">No tienes ninguna reserva? Porque no hacer la primera!</h3>
-                        <h5 class="panel-title" id="linkComment"><a routerLink="../reserva">Reserva!</a></h5>
-                        <div class="pull-right">
-                        </div>
+                    <h3 class="panel-title">No tienes ninguna reserva? Porque no hacer la primera!</h3>
+                    <h5 class="panel-title" id="linkComment"><a routerLink="../reserva">Reserva!</a></h5>
+                    <div class="pull-right">
                     </div>
+                </div>
                 <table *ngIf="reservasVacios" class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Fecha</th>
@@ -88,8 +88,8 @@
                 </div>
                 <table class="table table-hover tabla" id="dev-table">
                     <thead>
-                        <th>Numero Mesa</th>
-                        <th>Email usuario</th>
+                        <th>Mesa</th>
+                        <th>Usuario</th>
                         <th>Fecha</th>
                         <th>Turno</th>
                         <th>Personas</th>
@@ -112,7 +112,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-5" style="margin-top:25px;">
+        <div class="col-md-6" style="margin-top:25px;">
             <div *ngIf="!esAdmin" class="panel panel-primary formu">
                 <div *ngIf="!comentsVacios" class="panel-heading formu">
                     <h3 class="panel-title">No tienes ningun comentario? Porque no nos dejas tu opinion!</h3>
@@ -128,14 +128,12 @@
                 <table *ngIf="comentsVacios" class="table table-hover tabla" id="dev-table">
                     <thead>
                         <th>Fecha</th>
-                        <th>Descripcion</th>
                         <th>Puntuacion</th>
                         <th></th>
                     </thead>
                     <tbody *ngFor="let element of commentariosUser">
                         <tr>
                             <td>{{element.fecha}}</td>
-                            <td>{{element.titulo}}</td>
                             <td>{{element.puntuacion}}</td>
                             <td><button (click)="eliminarCommentario(element._id)"
                                     class="btn btn-danger">Borrar</button></td>
@@ -153,7 +151,6 @@
                     <thead>
                         <th>Nombre</th>
                         <th>Fecha</th>
-                        <th>Descripcion</th>
                         <th>Puntuacion</th>
                         <th></th>
                     </thead>
@@ -161,7 +158,6 @@
                         <tr>
                             <td>{{element.id_user}}</td>
                             <td>{{element.fecha}}</td>
-                            <td>{{element.titulo}}</td>
                             <td>{{element.puntuacion}}/10</td>
                             <td><button (click)="eliminarCommentario(element._id)"
                                     class="btn btn-danger">Borrar</button></td>

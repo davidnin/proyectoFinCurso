@@ -53,7 +53,7 @@ export class ConocenosComponent implements OnInit {
     this.obtenerComentarios();
   }
 
-
+  //Metodo para saber si esta registrado o no y mostrar o no la opcion de crear comentario
   estaRegistrado() {
     if (!this.identity) {
       this.esUser = false;
@@ -61,7 +61,7 @@ export class ConocenosComponent implements OnInit {
       this.esUser = true;
     }
   }
-
+  //Para obtener todos los comentarios de la gente
   obtenerComentarios() {
     this._commentService.getComments().subscribe(
       response => {
@@ -81,12 +81,14 @@ export class ConocenosComponent implements OnInit {
     )
   }
 
+  //Metodo para obtener el nombre del usuario
   obtenerUser() {
     this.commentariosMod = this.commentarios;
     for (var i = 0; i < this.commentariosMod.length; i++) {
       this.obtenerNombre(i);
     }
   }
+  ///Con este metodo guardamos en el id del user su nombre
   obtenerNombre(i) {
     this._userService.getUser(this.commentariosMod[i].id_user).subscribe(
       response => {
@@ -104,7 +106,7 @@ export class ConocenosComponent implements OnInit {
       }
     )
   }
-
+//Para obtener el dia de hoy y guardarlo en el objeto comentario como la fecha de creacion del comentario
   hoyFecha() {
     var hoy = new Date();
     var dd = hoy.getDate();
@@ -116,19 +118,20 @@ export class ConocenosComponent implements OnInit {
 
     return dd + '/' + mm + '/' + yyyy;
   }
-
+  //Parte de la funcion del metodo de arriba
   addZero(i) {
     if (i < 10) {
       i = '0' + i;
     }
     return i;
   }
-
+  //Creacion de commentario
   onSubmit() {
     console.log(!this.comment.descripcion)
     if (!this.comment.descripcion || !this.comment.puntuacion || !this.comment.titulo) {
       this.alertMessage = "Lleno";
     } else {
+      this.alertMessage = "";
       this.comment.fecha = this.hoyFecha();
       this._commentService.createComment(this.comment).subscribe(
         response => {

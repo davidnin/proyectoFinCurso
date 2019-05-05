@@ -1,13 +1,14 @@
 <div class="containter">
   <div class="col-md-12 control">
     <div style="padding-top:15px; padding-left:26%; padding-right:26% ">
-      <h3>Bienvenido a la pestaña de Reservas</h3>
-      <h6>Con los siguientes 3 pasos podras reservar una mesa en nuestro restaurante</h6>
-      <label>1-Introduce la fecha </label> <br>
-      <label>2-Introduce el turno </label>
-      <label id="turno">(Turno 1: 12:00-14:00. Turno 2: 14:00-16:00. Turno 3: 20:00-22:00. Turno 4: 22:00-00:00)</label>
-      <label>3-Clicka la mesa deseada, introduce las personas que cenaran en la mesa reservada </label>
-      <label>Y a disfrutar de la comida</label>
+      <h1 id="tituloPagina"><b>Reservas</b></h1>
+      <h4 id="tituloPagina">Con los siguientes 3 pasos podras reservar una mesa en nuestro restaurante</h4>
+      <label id="Descripcion"><i><label>1-Introduce la fecha deseada</label> <br>
+          <label>2-Introduce el turno deseado</label>
+          <label id="turno">Turno 1: 12:00-14:00. Turno 2: 14:00-16:00. Turno 3: 20:00-22:00. Turno 4:
+            22:00-00:00</label>
+          <label>3-Clicka la mesa deseada, introduce las personas que cenaran en la mesa reservada y listo!</label>
+        </i></label>
     </div>
   </div>
   <div class="col-md-12 control" *ngIf="alertMessage">
@@ -23,9 +24,9 @@
       </div>
       <div style="padding-top:15px" class="panel-body">
         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-        <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" (submit)="onSubmit()" method="post">
+        <form class="form-horizontal" role="form" #userUpdateFrom="ngForm" method="post">
           <div style="margin-bottom: 25px" class="input-group">
-            <input type="text" id="datepicker" placeholder="Introduce una Fecha">
+            <input type="text" id="datepicker" placeholder="Introduce Una Fecha">
           </div>
         </form>
       </div>
@@ -65,7 +66,7 @@
                   Turno4
                 </label>
               </div>
-              <button id="butonFecha" id="identificate" (click)="submitForm()">Buscar</button>
+              <button id="butonFecha" id="identificate" (click)="reserva()">Buscar</button>
             </form>
           </div>
         </form>
@@ -141,9 +142,21 @@
   </div>
 </div>
 <div class="col-md-12 control" *ngIf="errorCrearReserva">
-  <div class="alert alert-danger" style="margin-top:25px;"  id="alerta" role="alert">
+  <div class="alert alert-danger" style="margin-top:25px;" id="alerta" role="alert">
     <h4>Algo a fallado!</h4>
     {{errorCrearReserva}}
+  </div>
+</div>
+<div class="col-md-12 control" *ngIf="reservaCreada">
+  <div class="alert alert-success" id="alerta" role="alert">
+    <h4>Perfecto!</h4>
+    {{reservaCreada}}
+  </div>
+</div>
+<div class="col-md-12 control" *ngIf="mesaEstaBienCreada">
+  <div class="alert alert-success" id="alerta" role="alert">
+    <h4>Perfecto!</h4>
+    {{mesaEstaBienCreada}}
   </div>
 </div>
 <div class="containter" *ngIf="abrirReserva">

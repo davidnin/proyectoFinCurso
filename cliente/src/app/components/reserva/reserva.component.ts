@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ReservedService } from 'src/app/services/reserved.service';
 import { GLOBAL } from 'src/app/services/global';
 import { Reserved } from 'src/app/models/reserved';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.component.html',
@@ -49,6 +49,9 @@ export class ReservaComponent implements OnInit {
 
   public errorCrearReserva;
 
+  public reservaCreada;
+  public mesaEstaBienCreada;
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -67,10 +70,27 @@ export class ReservaComponent implements OnInit {
   ngOnInit() {
     this.cargarCalendario()
   }
+  //Funcion para cargar el datepicker sin necesidad de recargar pagina
   cargarCalendario() {
     var dateToday = new Date();
     $(function () {
-      $("#datepicker").datepicker({ numberOfMonths: 1, showButtonPanel: true, minDate: dateToday });
+      $("#datepicker").datepicker({
+        numberOfMonths: 1, showButtonPanel: true, minDate: dateToday, closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+      });
       $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
       $("#datepicker").datepicker("option", "showAnim", "slideDown");
       $('[type="text"]').change(function () {
@@ -80,6 +100,8 @@ export class ReservaComponent implements OnInit {
       });
     });
   }
+
+  //Funcion para obtener todas las mesas y utilizar este array mas adelante
   getMesas() {
 
     this._route.params.forEach((params: Params) => {
@@ -108,7 +130,8 @@ export class ReservaComponent implements OnInit {
     });
   }
 
-  submitForm() {
+  //LLegamos a la parte tocho, la parte del codigo la cual se lanza cuando el usuario hace una reserva
+  reserva() {
     this.abrirReserva = "";
     this.fecha = localStorage.getItem('fecha');
     this.fecha = this.fecha.replace("T", " ");
@@ -117,18 +140,13 @@ export class ReservaComponent implements OnInit {
     this.diaModificado[2]++;
     this.fechaReal = this.diaModificado.toString();
     this.fechafinal = this.fechaReal.replace('"', "");
-
+    //Hasta aqui parseamos la informacion del datepicker para convertirla en un string con dia-mes-año
     var radios = document.getElementsByName('optionsRadios');
 
-    //console.log(this.fechafinal)
-    //console.log(this.turno)
     //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente
-    //toca hacer mejor la comprobacion para que salga por visual no por alert, cuando aplique estilos ya se hara
     for (var i = 0, length = radios.length; i < length; i++) {
       if (radios[i].checked) {
-        // do whatever you want with the checked radio
         this.turno = radios[i].value;
-        // only one radio can be log  ically checked, don't check the rest
         break;
       }
     }
@@ -144,6 +162,7 @@ export class ReservaComponent implements OnInit {
     }
   }
 
+  //Del array de mesas , divide este en 3 arrays, que seran los arrays que se recorreran en la vista para mostrar el mapa de mesas
   mapeoMesas() {
     for (var i = 0, length = this.mesas.length; i < length; i++) {
       if (this.mesas[i].maxPersons == 2 || this.mesas[i].maxPersons == 8) {
@@ -161,6 +180,7 @@ export class ReservaComponent implements OnInit {
     }
   }
 
+  //Esta funcion de aqui lo que hace es pedir a la api todas las reservas del restaurante
   buscarReserva() {
     this._reservedService.getReserves().subscribe(
       response => {
@@ -184,6 +204,7 @@ export class ReservaComponent implements OnInit {
       });
   }
 
+  //Esta de aqui lo que hace es filtrar las reservas por el turno que esten reservadas.
   filtrarReservas() {
     this.reservaPorFecha = [];
     for (var i = 0; i < this.reservas.length; i++) {
@@ -206,6 +227,10 @@ export class ReservaComponent implements OnInit {
     this.mostrarDisponibilidad();
   }
 
+
+  //Este metodo de aqui lo que hace es una funcuin muy simple, una vez tenemos el dia y el turno cotejado, busca por este dia y
+  //este turrno y lo que hace a partir de aqui es comparar el turno y el id de mesa para saber si esta disponible o esa mesa en ese
+  //turno ya esta reservada y por lo tanto no esta disponible
   mostrarDisponibilidad() {
     var aux: boolean = false;
     for (var x = 0; x < this.mesas.length; x++) {
@@ -227,7 +252,7 @@ export class ReservaComponent implements OnInit {
     this.crearreserva.id_table = elemento;
     this.crearreserva.id_user = this.identity._id;
   }
-
+  //Metodo para crear la reserva
   onSubmit() {
     //console.log(this.crearreserva.people)
     var aux2: any;
@@ -257,7 +282,7 @@ export class ReservaComponent implements OnInit {
 
       this._reservedService.createReserve(this.crearreserva).subscribe(
         response => {
-          alert("La reserva se ha creado correctamente")
+          this.reservaCreada = "La reserva se ha creado correctamente";
         },
         error => {
           var errorMessage = <any>error;
@@ -273,6 +298,7 @@ export class ReservaComponent implements OnInit {
   }
 
 
+  //Funcion solo para el administrador del lugar web la cual te deja añadir una mesa
   crearMesa() {
     this.mesaNueva.ocupada = false;
     var x = this.mesas.length + 1;
@@ -281,7 +307,7 @@ export class ReservaComponent implements OnInit {
     //console.log(this.mesaNueva);
     this._tableService.createTable(this.mesaNueva).subscribe(
       response => {
-        alert("La reserva se ha creado correctamente")
+        this.mesaEstaBienCreada = "La reserva se ha creado correctamente";
         this.buscando = false;
         this.mesas = [];
         this.mesasPrimeraFila = [];

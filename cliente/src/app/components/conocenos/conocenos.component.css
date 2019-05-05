@@ -3,16 +3,16 @@ body { padding-top:30px; }
 .widget .list-group { margin-bottom: 0; }
 .widget .panel-title { display:inline }
 .widget .label-info { float: right; }
-.widget li.list-group-item {border-radius: 0;border: 0;border-top: 1px solid #ddd;}
-.widget li.list-group-item:hover { background-color: #EBDFA2; }
+.widget li.list-group-item {border-radius: 0;border: 0;border-top: 1px solid #F9F3ED; background-color: #FBEADA !important}
+.widget li.list-group-item:hover { background-color: #F9F3ED !important; }
 .widget .mic-info { color: #666666;font-size: 11px; }
 .widget .action { margin-top:5px; }
 .widget .comment-text { font-size: 12px; }
 .widget .btn-block { border-top-left-radius:0px;border-top-right-radius:0px; }
 
 .panel-default>.panel-heading{
-    background-color: #FFE482;
-    border-color: #EBDFA2;
+    background-color: #FBEADA;
+    border-color: #FBEADA;
 }
 
 #imagen{
@@ -21,17 +21,17 @@ body { padding-top:30px; }
 
 
 .formu{
-    background-color: #FFE482 ;
-    border-color: #EBDFA2;
+    background-color: #FBEADA ;
+    border-color: #FBEADA;
 }
 
 .form-control:hover{
-    border-color: #EBDFA2 !important;
+    border-color: #FBEADA !important;
 }
 
 .botones{
     background-color: black !important;
-    color: #FFE482;
+    color: #FBEADA;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -76,4 +76,22 @@ body { padding-top:30px; }
 
 #TA_selfserveprop120{
     margin-top: -6%;
+}
+
+#tituloPagina{
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Descripcion{
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.panel-heading{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.panel-title{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif !important;
 }
