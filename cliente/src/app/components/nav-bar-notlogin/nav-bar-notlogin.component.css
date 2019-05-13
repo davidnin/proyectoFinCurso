@@ -47,6 +47,13 @@ li > a:hover{
     }
   }
 
+  @media screen and (max-width: 332px) {
+    .navbar-brand {
+        padding: 10px 0px;
+    }
+  }
+
+
   .nav[_ngcontent-c2] > li[_ngcontent-c2] > a[_ngcontent-c2]:focus, .nav[_ngcontent-c2] > li[_ngcontent-c2] > a[_ngcontent-c2]:hover{
     color: #F4A509 !important;
 }

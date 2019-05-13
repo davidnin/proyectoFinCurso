@@ -68,7 +68,7 @@ export class ReservaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarCalendario()
+    this.cargarCalendario();
   }
   //Funcion para cargar el datepicker sin necesidad de recargar pagina
   cargarCalendario() {
@@ -95,7 +95,6 @@ export class ReservaComponent implements OnInit {
       $("#datepicker").datepicker("option", "showAnim", "slideDown");
       $('[type="text"]').change(function () {
         var date = $(this).datepicker("getDate");
-        console.log("Funcionde script: " + date);
         localStorage.setItem('fecha', JSON.stringify(date));
       });
     });
@@ -103,7 +102,7 @@ export class ReservaComponent implements OnInit {
 
   //Funcion para obtener todas las mesas y utilizar este array mas adelante
   getMesas() {
-
+    this.alertMessage = false;
     this._route.params.forEach((params: Params) => {
 
       this._tableService.getTables(this.token).subscribe(
@@ -134,26 +133,28 @@ export class ReservaComponent implements OnInit {
   reserva() {
     this.abrirReserva = "";
     this.fecha = localStorage.getItem('fecha');
-    this.fecha = this.fecha.replace("T", " ");
-    this.fechaReal = this.fecha.split(" ", 1);
-    this.diaModificado = this.fechaReal[0].split("-", 4);
-    this.diaModificado[2]++;
-    this.fechaReal = this.diaModificado.toString();
-    this.fechafinal = this.fechaReal.replace('"', "");
-    //Hasta aqui parseamos la informacion del datepicker para convertirla en un string con dia-mes-año
-    var radios = document.getElementsByName('optionsRadios');
-
-    //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente
-    for (var i = 0, length = radios.length; i < length; i++) {
-      if (radios[i].checked) {
-        this.turno = radios[i].value;
-        break;
-      }
-    }
-    if (!this.turno) {
+    if (!this.fecha) {
       this.alertMessage = true;
     } else {
-      if (!this.buscando) {
+      this.fecha = this.fecha.replace("T", " ");
+      this.fechaReal = this.fecha.split(" ", 1);
+      this.diaModificado = this.fechaReal[0].split("-", 4);
+      this.diaModificado[2]++;
+      this.fechaReal = this.diaModificado.toString();
+      this.fechafinal = this.fechaReal.replace('"', "");
+      //Hasta aqui parseamos la informacion del datepicker para convertirla en un string con dia-mes-año
+      var radios = document.getElementsByName('optionsRadios');
+
+      //si el usuario no mete ninguna fecha, se le assiganara el dia actual automaticamente
+      for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+          this.turno = radios[i].value;
+          break;
+        }
+      }
+      if (!this.turno) {
+        this.alertMessage = true;
+      } else {
         this.alertMessage = false;
         this.getMesas()
         this.buscando = true;
@@ -307,7 +308,7 @@ export class ReservaComponent implements OnInit {
     //console.log(this.mesaNueva);
     this._tableService.createTable(this.mesaNueva).subscribe(
       response => {
-        this.mesaEstaBienCreada = "La reserva se ha creado correctamente";
+        this.mesaEstaBienCreada = "La mesa se ha creado correctamente";
         this.buscando = false;
         this.mesas = [];
         this.mesasPrimeraFila = [];

@@ -9,3 +9,32 @@
     margin-left : 17.3%;
 }
 
+#tituloPagina{
+    font-family: 'Open Sans', sans-serif;
+}
+
+#Descripcion{
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.single-contact{
+    float: left;
+}
+
+#tablaInformacion{
+    margin-left: 16%;
+}
+
+
+.botones{
+    background-color: black !important;
+    color: #FBEADA;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 445px) {
+    #tablaInformacion{
+        margin-left:0%;
+    }
+}

@@ -127,7 +127,6 @@ export class ConocenosComponent implements OnInit {
   }
   //Creacion de commentario
   onSubmit() {
-    console.log(!this.comment.descripcion)
     if (!this.comment.descripcion || !this.comment.puntuacion || !this.comment.titulo) {
       this.alertMessage = "Lleno";
     } else {

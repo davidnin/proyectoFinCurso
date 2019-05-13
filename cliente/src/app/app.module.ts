@@ -15,7 +15,6 @@ import { ReservaComponent } from './components/reserva/reserva.component';
 import { UserService } from './services/user.service';
 import { TableService } from './services/table.service';
 import { ReservedService } from './services/reserved.service';
-import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { ConocenosComponent } from './components/conocenos/conocenos.component';
 import { CommentService } from './services/comment.service';
@@ -32,7 +31,6 @@ import { CommentService } from './services/comment.service';
     AboutUsComponent,
     CartaComponent,
     ReservaComponent,
-    FooterComponent,
     IndexComponent,
     ConocenosComponent
   ],

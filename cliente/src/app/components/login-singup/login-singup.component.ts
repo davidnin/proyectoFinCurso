@@ -42,7 +42,8 @@ export class LoginSingupComponent implements OnInit {
     this.errorMessage = "";
     this.errorRegister = "";
     this.usuarioExiste = "";
-    this.loginNotGood = null;
+    this.loginNotGood = "";
+    this.usuarioCreado = "";
   }
 
   //Metodo para cargar todos los usuarios y a posteriori, comprobar el email del registro con todos los emails de los users ya 
@@ -92,7 +93,7 @@ export class LoginSingupComponent implements OnInit {
   }
 
 
-//Metodo para cerrar sesion 
+  //Metodo para cerrar sesion 
   logOut() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
@@ -105,16 +106,13 @@ export class LoginSingupComponent implements OnInit {
   //Metodo para registrarse, primero comprobaremos que la PK ( en este caso el email) no coincida con ningun otro de ningun user
   // y luego ya pasaremos a cotejar los datos con la bbdd y asi crear el nuevo usuario
   onSubmitRegister() {
-
+    this.reiniciarVariables();
     for (var i = 0, length = this.usuarios.length; i < length; i++) {
       if (this.usuarios[i].email == this.user_register.email) {
         this.usuarioExiste = "El registro no se ha podido realizar debido a que el email que a introducido ya existe.";
       }
-      console.log("hace el bucle")
     }
-    console.log(this.usuarioExiste)
     if (this.usuarioExiste == "") {
-      console.log("entraBien")
       if (!this.user_register.email || !this.user_register.name || !this.user_register.lastname || !this.user_register.password) {
         this.errorRegister = "El registro no se ha podido realizar, por favor procede a meter toda la informacion necesaria para darte de alta";
       } else {
@@ -122,7 +120,7 @@ export class LoginSingupComponent implements OnInit {
           response => {
             let user = response.user;
             this.user_register = user;
-            this.usuarioCreado = "El registro se ha hecho correctamente, prueba de iniciar sesion con este mail: "+ this.user_register.email;            
+            this.usuarioCreado = "El registro se ha hecho correctamente, prueba de iniciar sesion con este mail: " + this.user_register.email;
             if (!user._id) {
               this.alertRegister = "Error al registrarse";
             } else {

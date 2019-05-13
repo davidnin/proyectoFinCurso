@@ -1,51 +1,44 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8" id="fondoImg">
-            <h2>Cocina de calidad al momento! Esa es la nueva ideologia que plantea el restaurante chumi churri a sus
-                clientes</h2>
-            <a routerLink="carta"><button>Nuestra Oferta Gastronomica!</button></a>
+        <div class="col-md-12 control">
+            <div style="padding:15px 0px; padding-left:15%; padding-right:15% ">
+                <h1 id="tituloPagina"><b>Cocina de calidad al momento! </b></h1>
+                <h4 id="Descripcion"><i>Esa es la nueva ideologia que plantea el restaurante chumi churri a sus
+                        clientes. Descubre ahora la gran novedad de nuestra pagina web, el poder reservar mesa donde
+                        y cuando quieras!! Aparte de disfrutar de esta nueva funcionalidad, en nuestra nueva pagina web
+                        podras ver toda la oferta gastronomica, asi como el horario, nuestro telefono...
+                    </i></h4>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-8" class="margen">
-            <h4>Novedad! Te ofrecemos la possibilidad de reservar una mesa especifica!</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8" class="margen">
-            <div class="col-md-2">
-                <label>Conoce un poco mas sobre el restaurante de moda en sabadell</label>
-                <a routerLink="el-restaurante"><button>Conoce mas</button></a>
+    <div class="row text-center">
+        <div class="col-md-8" id="tablaInformacion">
+            <div class="col-md-3 single-contact">
+                <img src="../../../assets/images/AceraDe.png" alt="Direccion">
+                <p id="Descripcion">Conoce un poco mas sobre el restaurante de moda en sabadell</p>
+                <a routerLink="el-restaurante"><button class="btn btn-primary botones">Conoce mas</button></a>
             </div>
-            <div class="col-md-2">
-                <label>Chumi churri ofrece todo tipo de comida!</label>
-                <a routerLink="carta"><button>Descubrir mas</button></a>
+            <div class="col-md-3 single-contact">
+                <img src="../../../assets/images/menuRestaurante.png" alt="Email">
+                <p id="Descripcion">Chumi churri ofrece todo tipo de comida, miralo en un click!</p>
+                <a routerLink="carta"><button class="btn btn-primary botones">Descubrir mas</button></a>
             </div>
-            <div class="col-md-2">
-                <label>La novedad la traemos nosotros, reserva ya una mesa!</label>
+            <div class="col-md-3 single-contact">
+                <img src="../../../assets/images/telefono.png" alt="Telefeno">
+                <p id="Descripcion">La novedad la traemos nosotros, reserva ya una mesa!</p>
                 <div *ngIf="identity">
-                    <a routerLink="reserva"><button>Reservar</button></a>
+                    <a routerLink="reserva"><button class="btn btn-primary botones">Reservar</button></a>
                 </div>
                 <div *ngIf="!identity">
-                    <a routerLink="login"><button>Reservar</button></a>
+                    <a routerLink="login"><button class="btn btn-primary botones">Reservar</button></a>
                 </div>
             </div>
-            <div class="col-md-2">
-                <label>Como encontranos!</label>
-                <a routerLink="contacto"><button>Informate</button></a>
+            <div class="col-md-3 single-contact">
+                <img src="../../../assets/images/horario.png" alt="Telefeno">
+                <p id="Descripcion">Toda la inforamcion del restaurante a un simple click!</p>
+                <a routerLink="contacto"><button class="btn btn-primary botones">Informate</button></a>
             </div>
         </div>
-    </div>
-</div>
-
-<div id="tripadvisor-icono">
-    <div id="TA_socialButtonBubbles700" class="TA_socialButtonBubbles">
-        <ul id="goKeo0p" class="TA_links xiaVuL">
-            <li id="9hurVCm0L" class="kxoSap"><a target="_blank"
-                    href="https://www.tripadvisor.es/Restaurant_Review-g227870-d4063527-Reviews-Chimi_Churri-Sabadell_Catalonia.html"><img
-                        src="https://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_white-21693-2.png" /></a>
-            </li>
-        </ul>
     </div>
 </div>
 

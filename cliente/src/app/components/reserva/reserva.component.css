@@ -134,7 +134,16 @@
     background-color: black !important;
     color: #FBEADA;
     border-radius: 5px;
+    margin-left: 43%;
 }
+
+#identificateEspecial{
+    background-color: black !important;
+    color: #FBEADA;
+    border-radius: 5px;
+    margin-left: 50%;
+}
+
 
 #turno{
     font-size: 85%;
@@ -144,7 +153,7 @@
 .alert{
     font-size: 75%;
     padding: 5px;
-    margin-left: 20%;    
+    margin-left: 15%;    
     margin-right: 19%;
 }
 
@@ -165,4 +174,22 @@
 #Descripcion{
     font-family: 'Open Sans', sans-serif !important;
     width: 77%;
+}
+
+.alert-danger{
+    text-align: center;
+}
+
+.alert-success{
+    margin-right: 29%;    
+    margin-left: 25.2%;
+    margin-top: 1%;
+    text-align: center;
+}
+
+#alertaEspecial{
+    margin-right: 29%;    
+    margin-left: 25.2%;
+    font-size: 100%;
+    text-align: center;
 }

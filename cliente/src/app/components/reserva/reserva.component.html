@@ -66,7 +66,6 @@
                   Turno4
                 </label>
               </div>
-              <button id="butonFecha" id="identificate" (click)="reserva()">Buscar</button>
             </form>
           </div>
         </form>
@@ -79,6 +78,7 @@
 
 <div class="container">
   <div class="row">
+    <button id="butonFecha" id="identificateEspecial" (click)="reserva()">Buscar</button>
     <div class="col-md-12">
       <div *ngIf="buscando" id="blocreserva" class="col-md-8">
         <h2>Elige una Mesa</h2>
@@ -142,7 +142,7 @@
   </div>
 </div>
 <div class="col-md-12 control" *ngIf="errorCrearReserva">
-  <div class="alert alert-danger" style="margin-top:25px;" id="alerta" role="alert">
+  <div class="alert alert-danger" id="alertaEspecial" style="margin-top:25px;" role="alert">
     <h4>Algo a fallado!</h4>
     {{errorCrearReserva}}
   </div>
@@ -170,7 +170,7 @@
         <form #reservaForm="ngForm" class="form-horizontal" role="form">
           <p>
             <label>Numero de personas:</label>
-            <input type="text" name="number" [(ngModel)]="crearreserva.people" class="form-control" required />
+            <input type="text" name="number" [(ngModel)]="crearreserva.people" id="numeroPersonas" class="form-control" required />
           </p>
           <input type="button" id="identificate" value="Reservar" (click)="onSubmit()" class="btn btn-primary">
         </form>

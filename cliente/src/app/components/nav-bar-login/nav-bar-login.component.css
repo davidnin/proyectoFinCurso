@@ -40,6 +40,13 @@ li > a:hover{
     #cerrarSesion{
         padding-top: 0px;
     }
+}
+
+
+@media screen and (max-width: 332px) {
+    .navbar-brand {
+        padding: 10px 0px;
+    }
   }
 
   .nav[_ngcontent-c1] > li[_ngcontent-c1] > a[_ngcontent-c1]:focus, .nav[_ngcontent-c1] > li[_ngcontent-c1] > a[_ngcontent-c1]:hover{
